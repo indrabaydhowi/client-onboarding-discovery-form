@@ -9,7 +9,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 /**
  * HomePage Component
- * Menampilkan form multi-step untuk onboarding & project discovery dengan animasi Framer Motion.
+ * Form multi-step onboarding & project discovery dengan estetika Claude Desktop (Warm Cream & Amber).
  */
 export default function HomePage() {
   const {
@@ -79,10 +79,10 @@ export default function HomePage() {
   };
 
   return (
-    <main className="min-h-screen bg-slate-950 text-slate-50 py-12 px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center relative overflow-hidden">
+    <main className="min-h-screen bg-[#FAF9F5] text-stone-800 py-12 px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center relative overflow-hidden">
       
-      {/* Background Decorative Glow */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-blue-600/10 blur-[120px] rounded-full pointer-events-none" />
+      {/* Background Soft Warm Glow */}
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-amber-500/10 blur-[140px] rounded-full pointer-events-none" />
 
       <div className="max-w-5xl w-full space-y-8 relative z-10">
         
@@ -90,9 +90,9 @@ export default function HomePage() {
         {!isSubmitted && (
           <div className="space-y-4 max-w-xl mx-auto">
             {/* Animated Progress Bar */}
-            <div className="w-full bg-slate-900 h-2 rounded-full overflow-hidden border border-slate-800/80 shadow-inner">
+            <div className="w-full bg-stone-200/80 h-2 rounded-full overflow-hidden border border-stone-300/60 shadow-inner">
               <motion.div
-                className="h-full bg-gradient-to-r from-blue-600 via-indigo-500 to-emerald-400 rounded-full"
+                className="h-full bg-gradient-to-r from-amber-500 via-amber-600 to-orange-600 rounded-full"
                 initial={{ width: "33.33%" }}
                 animate={{
                   width: step === 1 ? "33.33%" : step === 2 ? "66.66%" : "100%",
@@ -102,39 +102,39 @@ export default function HomePage() {
             </div>
 
             {/* Step Badges */}
-            <div className="flex items-center justify-center space-x-2 sm:space-x-3 text-xs sm:text-sm font-medium text-slate-400">
+            <div className="flex items-center justify-center space-x-2 sm:space-x-3 text-xs sm:text-sm font-medium text-stone-500">
               <motion.span
                 animate={{ scale: step === 1 ? 1.04 : 1 }}
                 className={`px-3 py-1 rounded-full transition-colors duration-300 ${
                   step === 1
-                    ? "bg-blue-600 text-white font-semibold shadow-lg shadow-blue-600/30"
+                    ? "bg-amber-600 text-white font-semibold shadow-sm"
                     : step > 1
-                    ? "bg-blue-950/60 text-blue-400 border border-blue-800/50"
-                    : "bg-slate-800 text-slate-400"
+                    ? "bg-amber-100 text-amber-900 border border-amber-300/80"
+                    : "bg-stone-200/80 text-stone-600"
                 }`}
               >
                 Langkah 1: Jenis Proyek
               </motion.span>
-              <span className="text-slate-600">&rarr;</span>
+              <span className="text-stone-400">&rarr;</span>
               <motion.span
                 animate={{ scale: step === 2 ? 1.04 : 1 }}
                 className={`px-3 py-1 rounded-full transition-colors duration-300 ${
                   step === 2
-                    ? "bg-blue-600 text-white font-semibold shadow-lg shadow-blue-600/30"
+                    ? "bg-amber-600 text-white font-semibold shadow-sm"
                     : step > 2
-                    ? "bg-blue-950/60 text-blue-400 border border-blue-800/50"
-                    : "bg-slate-800 text-slate-400"
+                    ? "bg-amber-100 text-amber-900 border border-amber-300/80"
+                    : "bg-stone-200/80 text-stone-600"
                 }`}
               >
                 Langkah 2: Fitur Tambahan
               </motion.span>
-              <span className="text-slate-600">&rarr;</span>
+              <span className="text-stone-400">&rarr;</span>
               <motion.span
                 animate={{ scale: step === 3 ? 1.04 : 1 }}
                 className={`px-3 py-1 rounded-full transition-colors duration-300 ${
                   step === 3
-                    ? "bg-blue-600 text-white font-semibold shadow-lg shadow-blue-600/30"
-                    : "bg-slate-800 text-slate-400"
+                    ? "bg-amber-600 text-white font-semibold shadow-sm"
+                    : "bg-stone-200/80 text-stone-600"
                 }`}
               >
                 Langkah 3: Detail & Kontak
@@ -160,43 +160,43 @@ export default function HomePage() {
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
                   transition={{ type: "spring", stiffness: 300, damping: 20, delay: 0.1 }}
-                  className="p-4 bg-emerald-500/10 text-emerald-400 rounded-full border border-emerald-500/20 shadow-lg shadow-emerald-500/10"
+                  className="p-4 bg-emerald-100 text-emerald-700 rounded-full border border-emerald-200 shadow-sm"
                 >
                   <CheckCircle2 className="w-14 h-14" />
                 </motion.div>
-                <h1 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+                <h1 className="text-3xl sm:text-4xl font-extrabold text-stone-900 tracking-tight">
                   Permintaan Proyek Berhasil Dikirim!
                 </h1>
-                <p className="text-slate-300 text-base max-w-lg leading-relaxed">
-                  Terima kasih <strong className="text-white">{name}</strong>. Tim kami sedang memproses rincian fitur untuk proyek <strong className="text-blue-400">{selectedProjectData?.title || "Website"}</strong> Anda. Proposal resmi dan estimasi harga akan segera kami kirimkan ke kontak Anda dalam 1x24 jam.
+                <p className="text-stone-600 text-base max-w-lg leading-relaxed">
+                  Terima kasih <strong className="text-stone-900">{name}</strong>. Tim kami sedang memproses rincian fitur untuk proyek <strong className="text-amber-700">{selectedProjectData?.title || "Website"}</strong> Anda. Proposal resmi dan estimasi harga akan segera kami kirimkan ke kontak Anda dalam 1x24 jam.
                 </p>
               </div>
 
               {/* Response Summary Card */}
-              <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 text-left space-y-6 shadow-xl backdrop-blur-sm">
-                <div className="flex items-center justify-between border-b border-slate-800 pb-4">
-                  <h2 className="text-lg font-bold text-white flex items-center gap-2">
-                    <Sparkles className="w-5 h-5 text-blue-400" /> Ringkasan Pengajuan Proyek
+              <div className="bg-white border border-stone-200/90 rounded-2xl p-6 text-left space-y-6 shadow-xl shadow-stone-200/50">
+                <div className="flex items-center justify-between border-b border-stone-200/80 pb-4">
+                  <h2 className="text-lg font-bold text-stone-900 flex items-center gap-2">
+                    <Sparkles className="w-5 h-5 text-amber-600" /> Ringkasan Pengajuan Proyek
                   </h2>
-                  <span className="text-xs px-2.5 py-1 bg-emerald-500/20 text-emerald-300 font-semibold rounded-full border border-emerald-500/30">
+                  <span className="text-xs px-2.5 py-1 bg-emerald-100 text-emerald-800 font-semibold rounded-full border border-emerald-200">
                     Status: Terverifikasi
                   </span>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-sm">
                   <div>
-                    <span className="text-xs text-slate-400 font-medium block mb-1">Jenis Proyek</span>
-                    <p className="text-white font-semibold text-base">{selectedProjectData?.title || "-"}</p>
-                    <p className="text-slate-400 text-xs mt-0.5">{selectedProjectData?.description}</p>
+                    <span className="text-xs text-stone-500 font-medium block mb-1">Jenis Proyek</span>
+                    <p className="text-stone-900 font-semibold text-base">{selectedProjectData?.title || "-"}</p>
+                    <p className="text-stone-500 text-xs mt-0.5">{selectedProjectData?.description}</p>
                   </div>
 
                   <div>
-                    <span className="text-xs text-slate-400 font-medium block mb-1">Target Waktu</span>
-                    <p className="text-white font-semibold text-base">{getTimelineLabel(timeline)}</p>
+                    <span className="text-xs text-stone-500 font-medium block mb-1">Target Waktu</span>
+                    <p className="text-stone-900 font-semibold text-base">{getTimelineLabel(timeline)}</p>
                   </div>
 
                   <div className="sm:col-span-2">
-                    <span className="text-xs text-slate-400 font-medium block mb-2">
+                    <span className="text-xs text-stone-500 font-medium block mb-2">
                       Fitur Tambahan Terpilih ({selectedFeatures.length})
                     </span>
                     {selectedFeatures.length > 0 ? (
@@ -206,7 +206,7 @@ export default function HomePage() {
                           return (
                             <span
                               key={featureId}
-                              className="px-3 py-1.5 bg-blue-950/60 border border-blue-800/60 text-blue-300 text-xs font-medium rounded-lg"
+                              className="px-3 py-1.5 bg-amber-50 border border-amber-200/80 text-amber-900 text-xs font-medium rounded-lg"
                             >
                               {feat?.title || featureId}
                             </span>
@@ -214,18 +214,18 @@ export default function HomePage() {
                         })}
                       </div>
                     ) : (
-                      <p className="text-slate-500 text-xs italic">Tidak ada fitur tambahan khusus yang dipilih.</p>
+                      <p className="text-stone-400 text-xs italic">Tidak ada fitur tambahan khusus yang dipilih.</p>
                     )}
                   </div>
 
-                  <div className="sm:col-span-2 pt-4 border-t border-slate-800/80 flex flex-col sm:flex-row justify-between text-xs text-slate-400 gap-2">
+                  <div className="sm:col-span-2 pt-4 border-t border-stone-200/80 flex flex-col sm:flex-row justify-between text-xs text-stone-600 gap-2">
                     <div>
                       <span>Nama Klien: </span>
-                      <strong className="text-slate-200">{name}</strong>
+                      <strong className="text-stone-900">{name}</strong>
                     </div>
                     <div>
                       <span>Kontak Utama: </span>
-                      <strong className="text-slate-200">{contact}</strong>
+                      <strong className="text-stone-900">{contact}</strong>
                     </div>
                   </div>
                 </div>
@@ -238,7 +238,7 @@ export default function HomePage() {
                   whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 0.97 }}
                   onClick={handleWhatsAppClick}
-                  className="px-6 py-3.5 rounded-xl font-semibold bg-emerald-600 hover:bg-emerald-500 text-white shadow-lg shadow-emerald-600/20 transition-colors duration-200 flex items-center gap-2.5 text-sm cursor-pointer"
+                  className="px-6 py-3.5 rounded-xl font-semibold bg-emerald-600 hover:bg-emerald-700 text-white shadow-md shadow-emerald-600/20 transition-colors duration-200 flex items-center gap-2.5 text-sm cursor-pointer"
                 >
                   <MessageCircle className="w-5 h-5" /> Konsultasi Langsung via WhatsApp
                 </motion.button>
@@ -255,10 +255,10 @@ export default function HomePage() {
               className="space-y-8"
             >
               <div className="text-center space-y-3">
-                <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
+                <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-stone-900">
                   Pilih Jenis Proyek Anda
                 </h1>
-                <p className="text-slate-400 text-base max-w-2xl mx-auto">
+                <p className="text-stone-600 text-base max-w-2xl mx-auto">
                   Temukan solusi web development yang paling sesuai dengan kebutuhan bisnis atau organisasi Anda.
                 </p>
               </div>
@@ -292,16 +292,16 @@ export default function HomePage() {
               className="space-y-8"
             >
               <div className="text-center space-y-3">
-                <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
+                <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-stone-900">
                   Pilih Fitur Tambahan
                 </h1>
-                <p className="text-slate-400 text-base max-w-2xl mx-auto">
+                <p className="text-stone-600 text-base max-w-2xl mx-auto">
                   Pilih fitur pendukung yang Anda butuhkan untuk mengoptimalkan proyek web Anda.
                 </p>
                 {selectedProjectData && (
                   <div className="pt-2 flex justify-center">
-                    <span className="px-4 py-2 rounded-full bg-blue-900/30 text-blue-400 text-sm font-medium border border-blue-800/50">
-                      Proyek Terpilih: <strong className="text-white ml-1">{selectedProjectData.title}</strong>
+                    <span className="px-4 py-2 rounded-full bg-amber-100/70 text-amber-900 text-sm font-medium border border-amber-300/80 shadow-sm">
+                      Proyek Terpilih: <strong className="text-amber-950 ml-1">{selectedProjectData.title}</strong>
                     </span>
                   </div>
                 )}
@@ -326,7 +326,7 @@ export default function HomePage() {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={() => setStep(1)}
-                  className="px-6 py-3 rounded-lg font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition-colors duration-200 cursor-pointer"
+                  className="px-6 py-3 rounded-lg font-semibold bg-stone-100 hover:bg-stone-200 text-stone-700 border border-stone-300/80 transition-colors duration-200 cursor-pointer shadow-sm"
                 >
                   &larr; Kembali
                 </motion.button>
@@ -335,7 +335,7 @@ export default function HomePage() {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={() => setStep(3)}
-                  className="px-6 py-3 rounded-lg font-semibold bg-blue-600 hover:bg-blue-700 text-white shadow-lg transition-colors duration-200 cursor-pointer"
+                  className="px-6 py-3 rounded-lg font-semibold bg-amber-600 hover:bg-amber-700 text-white shadow-md shadow-amber-600/20 transition-colors duration-200 cursor-pointer"
                 >
                   Lanjutkan &rarr;
                 </motion.button>
@@ -350,20 +350,20 @@ export default function HomePage() {
               exit={{ opacity: 0, y: -15, scale: 0.98 }}
               transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
             >
-              <form onSubmit={handleSubmit} className="space-y-8 bg-slate-900/60 p-6 sm:p-8 rounded-2xl border border-slate-800 backdrop-blur-sm">
+              <form onSubmit={handleSubmit} className="space-y-8 bg-white p-6 sm:p-8 rounded-2xl border border-stone-200/90 shadow-xl shadow-stone-200/50">
                 <div className="text-center space-y-3">
-                  <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
+                  <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-stone-900">
                     Estimasi Waktu & Data Kontak
                   </h1>
-                  <p className="text-slate-400 text-base max-w-2xl mx-auto">
+                  <p className="text-stone-600 text-base max-w-2xl mx-auto">
                     Lengkapi detail singkat ini agar kami dapat menghitung dan mengirimkan penawaran estimasi secara privat.
                   </p>
                   {selectedProjectData && (
                     <div className="pt-2 flex justify-center flex-wrap gap-2">
-                      <span className="px-3 py-1 rounded-full bg-blue-900/30 text-blue-400 text-xs font-medium border border-blue-800/50">
-                        Proyek: <strong className="text-white ml-1">{selectedProjectData.title}</strong>
+                      <span className="px-3 py-1 rounded-full bg-amber-100/70 text-amber-900 text-xs font-medium border border-amber-300/80">
+                        Proyek: <strong className="text-amber-950 ml-1">{selectedProjectData.title}</strong>
                       </span>
-                      <span className="px-3 py-1 rounded-full bg-slate-800 text-slate-300 text-xs font-medium border border-slate-700">
+                      <span className="px-3 py-1 rounded-full bg-stone-100 text-stone-700 text-xs font-medium border border-stone-300/80">
                         {selectedFeatures.length} Fitur Dipilih
                       </span>
                     </div>
@@ -372,7 +372,7 @@ export default function HomePage() {
 
                 {/* Estimasi Waktu (Timeline) */}
                 <div className="space-y-3">
-                  <label className="block text-sm font-semibold text-slate-200">
+                  <label className="block text-sm font-semibold text-stone-800">
                     Estimasi Waktu Pengerjaan
                   </label>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -389,8 +389,8 @@ export default function HomePage() {
                         onClick={() => setTimeline(item.id)}
                         className={`p-4 rounded-xl border text-sm font-medium transition-colors text-center cursor-pointer ${
                           timeline === item.id
-                            ? "border-blue-500 bg-blue-900/30 text-white ring-2 ring-blue-500/50"
-                            : "border-slate-800 bg-slate-900 text-slate-300 hover:border-slate-700 hover:bg-slate-800"
+                            ? "border-amber-600 bg-amber-50/70 text-amber-950 ring-2 ring-amber-300"
+                            : "border-stone-200 bg-white text-stone-700 hover:border-amber-300 hover:bg-stone-50"
                         }`}
                       >
                         {item.label}
@@ -400,42 +400,42 @@ export default function HomePage() {
                 </div>
 
                 {/* Informasi Kontak */}
-                <div className="space-y-4 pt-2 border-t border-slate-800">
-                  <h3 className="text-sm font-semibold text-slate-200">
+                <div className="space-y-4 pt-2 border-t border-stone-200/80">
+                  <h3 className="text-sm font-semibold text-stone-800">
                     Informasi Kontak
                   </h3>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs text-slate-400 mb-1 font-medium">Nama Anda *</label>
+                      <label className="block text-xs text-stone-500 mb-1 font-medium">Nama Anda *</label>
                       <input
                         type="text"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         placeholder="Contoh: Budi Santoso"
-                        className="w-full p-3.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-100 text-sm focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent placeholder-slate-500 transition-all"
+                        className="w-full p-3.5 rounded-xl bg-stone-50 border border-stone-200 text-stone-900 text-sm focus:outline-none focus:ring-2 focus:ring-amber-600 focus:border-transparent focus:bg-white placeholder-stone-400 transition-all"
                       />
                     </div>
                     <div>
-                      <label className="block text-xs text-slate-400 mb-1 font-medium">Nomor WhatsApp / Email *</label>
+                      <label className="block text-xs text-stone-500 mb-1 font-medium">Nomor WhatsApp / Email *</label>
                       <input
                         type="text"
                         value={contact}
                         onChange={(e) => setContact(e.target.value)}
                         placeholder="Contoh: 081234567890 / budi@email.com"
-                        className="w-full p-3.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-100 text-sm focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent placeholder-slate-500 transition-all"
+                        className="w-full p-3.5 rounded-xl bg-stone-50 border border-stone-200 text-stone-900 text-sm focus:outline-none focus:ring-2 focus:ring-amber-600 focus:border-transparent focus:bg-white placeholder-stone-400 transition-all"
                       />
                     </div>
                   </div>
                 </div>
 
                 {/* Tombol Final (Call to Action) */}
-                <div className="flex flex-col sm:flex-row justify-between items-center gap-4 pt-4 border-t border-slate-800">
+                <div className="flex flex-col sm:flex-row justify-between items-center gap-4 pt-4 border-t border-stone-200/80">
                   <motion.button
                     type="button"
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={() => setStep(2)}
-                    className="w-full sm:w-auto px-6 py-3.5 rounded-xl font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition-colors duration-200 cursor-pointer text-center"
+                    className="w-full sm:w-auto px-6 py-3.5 rounded-xl font-semibold bg-stone-100 hover:bg-stone-200 text-stone-700 border border-stone-300/80 transition-colors duration-200 cursor-pointer text-center"
                   >
                     &larr; Kembali
                   </motion.button>
@@ -446,8 +446,8 @@ export default function HomePage() {
                     disabled={!name.trim() || !contact.trim()}
                     className={`w-full sm:w-auto px-8 py-3.5 rounded-xl font-bold transition-all duration-200 text-center ${
                       name.trim() && contact.trim()
-                        ? "bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white shadow-lg shadow-blue-600/30 cursor-pointer"
-                        : "bg-slate-800 text-slate-500 cursor-not-allowed border border-slate-700"
+                        ? "bg-amber-600 hover:bg-amber-700 text-white shadow-md shadow-amber-600/20 cursor-pointer"
+                        : "bg-stone-200 text-stone-400 border border-stone-300 cursor-not-allowed"
                     }`}
                   >
                     Kirim Permintaan Estimasi 🚀
