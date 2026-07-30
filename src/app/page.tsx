@@ -226,10 +226,15 @@ export default function HomePage() {
                   <h3 className="text-lg font-bold text-stone-900 font-display">{project.title}</h3>
                   <p className="text-sm text-stone-500 leading-relaxed">{project.description}</p>
                 </div>
-                <div className="pt-6 mt-auto">
+                <div className="pt-6 mt-auto flex flex-wrap items-center gap-2">
                   <span className="inline-flex px-3 py-1 bg-amber-50 text-amber-950 text-xs font-semibold rounded-md border border-amber-200/60">
                     {dummyPrices[project.id]}
                   </span>
+                  {SHOW_DUMMY_WATERMARK && (
+                    <span className="inline-flex px-2 py-0.5 bg-red-100 text-red-600 text-[9px] font-bold tracking-widest border border-red-200 uppercase rounded-sm shadow-sm">
+                      DUMMY
+                    </span>
+                  )}
                 </div>
               </div>
             ))}

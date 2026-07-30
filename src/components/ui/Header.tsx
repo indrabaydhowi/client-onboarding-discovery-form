@@ -32,7 +32,7 @@ export default function Header() {
             <span className="font-extrabold tracking-tight text-xl leading-none">
               <span className="text-stone-800 font-display">Tukang</span><span className="text-amber-600 font-display">Web</span>
             </span>
-            <span className="text-[10px] text-stone-500 font-medium tracking-wide mt-0.5 hidden sm:block">Website yang Beneran Kerja</span>
+            <span className="text-xs text-stone-600 font-medium tracking-wide mt-1 hidden sm:block">Website yang Beneran Kerja</span>
           </div>
         </div>
 
