@@ -3,11 +3,19 @@
 import React from 'react';
 
 import { projectTypes, additionalFeatures } from '@/config/onboardingData';
+import { dummyPrices, whyChooseMe, dummyTestimonials, dummyStats } from '@/config/dummyData';
 import ProjectCard from '@/components/ui/ProjectCard';
 import FeatureCard from '@/components/ui/FeatureCard';
 import { useFormContext } from '@/context/FormContext';
-import { CheckCircle2, Sparkles, MessageCircle } from 'lucide-react';
+import { CheckCircle2, Sparkles, MessageCircle, ArrowRight, ShieldCheck, Users, Settings } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+
+const iconMap: Record<string, React.ElementType> = {
+  ShieldCheck,
+  Users,
+  Settings,
+  MessageCircle,
+};
 
 export default function HomePage() {
   const {
@@ -23,8 +31,13 @@ export default function HomePage() {
     setName,
     contact,
     setContact,
+    additionalNotes,
+    setAdditionalNotes,
+    isWizardStarted,
+    setIsWizardStarted,
     isSubmitted,
     setIsSubmitted,
+    resetForm,
   } = useFormContext();
 
   const [errors, setErrors] = React.useState<{ name?: string; contact?: string; consent?: string }>({});
@@ -95,10 +108,16 @@ export default function HomePage() {
     const clientName = name || "Klien";
     const clientTimeline = getTimelineLabel(timeline);
 
+    let notesText = "";
+    if (additionalNotes.trim()) {
+      notesText = `• *Catatan Tambahan:*\n_${additionalNotes}_\n\n`;
+    }
+
     const message = `Halo, saya *${clientName}*. Saya baru saja mengajukan estimasi proyek melalui website.\n\n` +
                     `• *Jenis Proyek:* ${projectName}\n` +
                     `• *Fitur Tambahan:* ${featuresList}\n` +
                     `• *Timeline:* ${clientTimeline}\n\n` +
+                    notesText +
                     `Mohon informasikan estimasi rincian biaya dan kelanjutannya. Terima kasih!`;
 
     const phoneNumber = "6281234567890";
@@ -113,10 +132,133 @@ export default function HomePage() {
     transition: { duration: 0.3, ease: [0.25, 0.1, 0.25, 1] as const },
   };
 
+  if (!isWizardStarted) {
+    return (
+      <main className="min-h-screen text-stone-800 pb-20">
+        {/* HERO SECTION */}
+        <section className="pt-24 pb-16 px-5 sm:px-8 max-w-5xl mx-auto text-center space-y-8">
+          <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-stone-900 leading-tight mx-auto max-w-4xl">
+              Website yang Bukan Cuma Bagus Dilihat, Tapi <span className="text-amber-600">Bekerja untuk Bisnis Anda</span>
+            </h1>
+            <p className="mt-6 text-lg sm:text-xl text-stone-500 max-w-2xl mx-auto leading-relaxed">
+              Dari landing page yang mengonversi sampai sistem manajemen data yang rumit — saya bantu wujudkan aplikasi web Anda dengan proses yang jelas, transparan, dan tanpa drama.
+            </p>
+          </motion.div>
+          
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2, duration: 0.5 }} className="pt-4 space-y-4">
+            <button 
+              onClick={() => setIsWizardStarted(true)}
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full font-bold text-white bg-amber-600 hover:bg-amber-700 shadow-lg shadow-amber-600/20 transition-all hover:scale-105 active:scale-95"
+            >
+              Mulai Proyek Anda <ArrowRight className="w-5 h-5" />
+            </button>
+            <p className="text-xs text-stone-400 font-medium tracking-wide">
+              Tanpa komitmen — isi kebutuhan Anda dulu, estimasi biaya dikirim privat dalam 1×24 jam.
+            </p>
+          </motion.div>
+        </section>
+
+        {/* STATS BAR */}
+        <section className="border-y border-stone-200/60 bg-white">
+          <div className="max-w-4xl mx-auto px-5 py-8 grid grid-cols-3 divide-x divide-stone-100 text-center">
+            {dummyStats.map((stat, i) => (
+              <div key={i} className="flex flex-col items-center justify-center space-y-1">
+                <span className="text-2xl sm:text-3xl font-bold text-stone-900">{stat.value}</span>
+                <span className="text-[10px] sm:text-xs text-stone-400 font-medium uppercase tracking-wider">{stat.label}</span>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* SERVICES SECTION */}
+        <section className="py-20 px-5 sm:px-8 max-w-6xl mx-auto space-y-10">
+          <div className="text-center space-y-3">
+            <h2 className="text-3xl font-bold text-stone-900 tracking-tight">Layanan yang Tersedia</h2>
+            <p className="text-stone-500">Pilih dari layanan inti ini, dan sesuaikan dengan kebutuhan Anda nanti.</p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {projectTypes.map((project) => (
+              <div key={project.id} className="relative rounded-2xl p-6 bg-white border border-stone-200/80 shadow-sm flex flex-col h-full hover:border-amber-300 transition-colors">
+                <div className="space-y-4 flex-grow">
+                  <h3 className="text-lg font-bold text-stone-900">{project.title}</h3>
+                  <p className="text-sm text-stone-500 leading-relaxed">{project.description}</p>
+                </div>
+                <div className="pt-6 mt-auto">
+                  <span className="inline-flex px-3 py-1 bg-amber-50 text-amber-800 text-xs font-semibold rounded-md border border-amber-200/60">
+                    {dummyPrices[project.id]}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* WHY CHOOSE ME */}
+        <section className="py-20 px-5 sm:px-8 bg-stone-900 text-stone-50">
+          <div className="max-w-6xl mx-auto space-y-12">
+            <div className="text-center">
+              <h2 className="text-3xl font-bold tracking-tight text-white">Kenapa Memilih Saya</h2>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 max-w-4xl mx-auto">
+              {whyChooseMe.map((item, i) => {
+                const Icon = iconMap[item.icon] || CheckCircle2;
+                return (
+                  <div key={i} className="flex gap-4">
+                    <div className="flex-shrink-0 p-3 bg-stone-800 rounded-xl h-fit">
+                      <Icon className="w-6 h-6 text-amber-500" />
+                    </div>
+                    <div className="space-y-2">
+                      <h3 className="text-lg font-bold text-white">{item.title}</h3>
+                      <p className="text-stone-400 text-sm leading-relaxed">{item.description}</p>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+        </section>
+
+        {/* PROJECTS / SOCIAL PROOF */}
+        <section id="projects" className="py-24 px-5 sm:px-8 max-w-6xl mx-auto space-y-12">
+          <div className="text-center space-y-3">
+            <h2 className="text-3xl font-bold text-stone-900 tracking-tight">Beberapa Proyek yang Sudah Saya Kerjakan</h2>
+            <p className="text-stone-500">Hasil kolaborasi dengan klien-klien luar biasa.</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {dummyTestimonials.map((t, i) => (
+              <div key={i} className="bg-white p-6 rounded-2xl border border-stone-200/80 shadow-sm flex flex-col h-full space-y-6 relative">
+                <span className="text-6xl text-stone-100 absolute top-4 right-6 font-serif leading-none">"</span>
+                <p className="text-stone-600 text-sm leading-relaxed italic relative z-10 flex-grow">
+                  "{t.quote}"
+                </p>
+                <div className="pt-4 border-t border-stone-100">
+                  <p className="font-bold text-stone-900 text-sm">{t.author}</p>
+                  <p className="text-xs text-stone-400">{t.role}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="pt-8 text-center">
+            <button 
+              onClick={() => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                setIsWizardStarted(true);
+              }}
+              className="px-6 py-3 rounded-full font-bold text-stone-700 bg-stone-100 hover:bg-stone-200 transition-colors text-sm"
+            >
+              Mulai Proyek Anda Sekarang
+            </button>
+          </div>
+        </section>
+      </main>
+    );
+  }
+
   return (
-    <main className="min-h-screen bg-[#FAF9F5] text-stone-800 py-16 px-5 sm:px-8 lg:px-10 flex flex-col items-center justify-center relative overflow-hidden">
+    <main className="min-h-[calc(100vh-64px)] bg-[#FAF9F5] text-stone-800 py-12 px-5 sm:px-8 lg:px-10 flex flex-col items-center justify-start relative overflow-hidden">
       
-      <div className="max-w-4xl w-full space-y-10 relative z-10">
+      <div className="max-w-4xl w-full space-y-10 relative z-10 pt-4">
         
         {/* Progress — clean and minimal */}
         {!isSubmitted && (
@@ -242,16 +384,42 @@ export default function HomePage() {
                 </div>
               </div>
 
-              <div className="pt-1">
+              <div className="pt-6 flex flex-col items-center gap-3">
                 <motion.button
                   type="button"
                   whileHover={{ y: -1 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={handleWhatsAppClick}
-                  className="inline-flex items-center gap-2 px-5 py-3 rounded-xl font-medium bg-emerald-600 hover:bg-emerald-700 text-white text-sm shadow-sm transition-colors duration-200 cursor-pointer"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl font-bold bg-emerald-600 hover:bg-emerald-700 text-white text-sm shadow-md transition-all duration-200 cursor-pointer"
                 >
                   <MessageCircle className="w-4 h-4" strokeWidth={1.5} /> Hubungi via WhatsApp
                 </motion.button>
+                
+                <div className="pt-8 w-full max-w-sm space-y-3">
+                  <p className="text-xs text-stone-400 text-center font-medium">Sambil menunggu, boleh mampir dulu ke halaman lain 👇</p>
+                  <div className="flex flex-col gap-2">
+                    <button 
+                      onClick={() => {
+                        resetForm();
+                        setTimeout(() => {
+                          document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
+                        }, 100);
+                      }}
+                      className="w-full px-5 py-2.5 rounded-lg text-sm font-semibold text-amber-700 bg-amber-50 hover:bg-amber-100 transition-colors border border-amber-200/60"
+                    >
+                      Lihat Proyek Lainnya &rarr;
+                    </button>
+                    <button 
+                      onClick={() => {
+                        resetForm();
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                      }}
+                      className="w-full px-5 py-2.5 rounded-lg text-sm font-semibold text-stone-600 bg-white hover:bg-stone-50 transition-colors border border-stone-200/80"
+                    >
+                      &larr; Kembali ke Beranda
+                    </button>
+                  </div>
+                </div>
               </div>
             </motion.div>
 
@@ -454,6 +622,18 @@ export default function HomePage() {
                       />
                       {errors.contact && <p className="text-[11px] text-red-500 mt-1.5 font-medium">{errors.contact}</p>}
                     </div>
+                  </div>
+                  
+                  {/* Additional Notes */}
+                  <div className="pt-2">
+                    <label className="block text-xs font-medium text-stone-600 mb-1.5">Catatan tambahan (opsional)</label>
+                    <textarea
+                      value={additionalNotes}
+                      onChange={(e) => setAdditionalNotes(e.target.value)}
+                      placeholder="Ceritakan kebutuhan spesifik Anda di luar yang sudah dipilih..."
+                      rows={3}
+                      className="w-full px-4 py-3 rounded-xl bg-stone-50/80 border border-stone-200 text-stone-800 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/40 focus:border-amber-400 focus:bg-white placeholder-stone-300 transition-all duration-200 resize-y"
+                    ></textarea>
                   </div>
                   
                   {/* Consent Checkbox */}

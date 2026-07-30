@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { FormProvider } from "@/context/FormContext";
+import Header from "@/components/ui/Header";
 
 export const metadata: Metadata = {
   title: "Client Onboarding & Project Discovery Form",
@@ -19,6 +20,7 @@ export default function RootLayout({
     <html lang="id">
       <body className="min-h-screen bg-[#FAF9F5] text-stone-800 antialiased">
         <FormProvider>
+          <Header />
           {children}
         </FormProvider>
       </body>

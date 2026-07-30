@@ -16,6 +16,10 @@ interface FormContextType {
   setName: (name: string) => void;
   contact: string;
   setContact: (contact: string) => void;
+  additionalNotes: string;
+  setAdditionalNotes: (notes: string) => void;
+  isWizardStarted: boolean;
+  setIsWizardStarted: (started: boolean) => void;
   isSubmitted: boolean;
   setIsSubmitted: (isSubmitted: boolean) => void;
   resetForm: () => void;
@@ -30,6 +34,8 @@ export function FormProvider({ children }: { children: ReactNode }) {
   const [timeline, setTimeline] = useState<string>("");
   const [name, setName] = useState<string>("");
   const [contact, setContact] = useState<string>("");
+  const [additionalNotes, setAdditionalNotes] = useState<string>("");
+  const [isWizardStarted, setIsWizardStarted] = useState<boolean>(false);
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
 
   const toggleFeature = (featureId: string) => {
@@ -46,7 +52,9 @@ export function FormProvider({ children }: { children: ReactNode }) {
     setTimeline("");
     setName("");
     setContact("");
+    setAdditionalNotes("");
     setIsSubmitted(false);
+    setIsWizardStarted(false);
     setStep(1);
   };
 
@@ -66,6 +74,10 @@ export function FormProvider({ children }: { children: ReactNode }) {
         setName,
         contact,
         setContact,
+        additionalNotes,
+        setAdditionalNotes,
+        isWizardStarted,
+        setIsWizardStarted,
         isSubmitted,
         setIsSubmitted,
         resetForm,
