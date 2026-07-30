@@ -1,5 +1,12 @@
 import React from 'react';
-import * as Icons from 'lucide-react';
+import { Layout, Database, ShoppingCart, Globe, HelpCircle } from 'lucide-react';
+
+const iconMap = {
+  Layout,
+  Database,
+  ShoppingCart,
+  Globe,
+};
 
 /**
  * Komponen visual kartu jenis proyek.
@@ -11,7 +18,7 @@ import * as Icons from 'lucide-react';
  */
 export default function ProjectCard({ title, description, iconName }) {
   // Mendapatkan komponen ikon Lucide secara dinamis berdasarkan nama
-  const IconComponent = Icons[iconName] || Icons.HelpCircle;
+  const IconComponent = iconMap[iconName] || HelpCircle;
 
   return (
     <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 cursor-pointer flex flex-col gap-4 text-left">

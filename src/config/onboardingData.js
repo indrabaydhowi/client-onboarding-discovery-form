@@ -9,6 +9,12 @@ export const projectTypes = [
     icon: "Layout",
   },
   {
+    id: "company-profile",
+    title: "Website Multipage",
+    description: "Website Company Profile dengan beberapa halaman (Home, About, Services).",
+    icon: "Globe",
+  },
+  {
     id: "data-management",
     title: "Manajemen Data",
     description: "Aplikasi web dengan dashboard untuk mengelola data internal.",
