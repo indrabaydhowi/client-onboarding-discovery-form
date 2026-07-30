@@ -1,5 +1,20 @@
+# ⚠️ CRITICAL RULE — BACA SEBELUM MELAKUKAN APA PUN
+
+Sebelum menulis atau mengubah kode apa pun, kamu WAJIB membaca:
+1. `docs/PRD.md` — untuk memahami requirement & arsitektur teknis
+2. `docs/UI_UX_BRIEF.md` — untuk memahami panduan desain visual
+3. `docs/IMPLEMENTATION_PLAN.md` — untuk memahami fase yang sedang aktif
+
+Jangan melompati fase yang ada di Implementation Plan. Eksekusi hanya boleh dilakukan pada fase yang statusnya "In Progress" atau "Not Started" berikutnya.
+
+---
+
 # AI Context Rules
-Tech stack: Next.js (App Router), Tailwind CSS, Lucide Icons.
-- Pisahkan data murni dengan komponen UI.
+
+Tech stack: Next.js 14 (App Router), Tailwind CSS v3, Lucide Icons, TypeScript.
+- Pisahkan data murni dengan komponen UI. Data hanya boleh ada di `src/config/`.
 - Gunakan penamaan: kebab-case untuk folder/file, PascalCase untuk komponen React.
-- Wajib menuliskan komentar singkat pada fungsi-fungsi utama.
+- Wajib menuliskan komentar JSDoc singkat pada setiap komponen dan fungsi utama.
+- Semua komponen UI harus memenuhi standar aksesibilitas WCAG 2.1 AA (ARIA attributes, keyboard navigation).
+- Ikuti panduan warna, tipografi, dan spacing yang didefinisikan di `docs/UI_UX_BRIEF.md`.
+- Jangan pernah hardcode data konten (teks, opsi, label) di dalam komponen; selalu ambil dari `src/config/onboardingData.ts`.
