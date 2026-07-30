@@ -4,6 +4,7 @@ import { projectTypes, additionalFeatures } from '@/config/onboardingData';
 import ProjectCard from '@/components/ui/ProjectCard';
 import FeatureCard from '@/components/ui/FeatureCard';
 import { useFormContext } from '@/context/FormContext';
+import { CheckCircle2, RotateCcw, Sparkles } from 'lucide-react';
 
 /**
  * HomePage Component
@@ -23,6 +24,7 @@ export default function HomePage() {
     setName,
     contact,
     setContact,
+    resetForm,
   } = useFormContext();
 
   const filteredFeatures = additionalFeatures.filter(
@@ -36,27 +38,42 @@ export default function HomePage() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!name.trim() || !contact.trim()) return;
-    alert("Terima kasih! Permintaan estimasi Anda telah berhasil dikirim.");
+    setStep(4);
+  };
+
+  const getTimelineLabel = (id: string) => {
+    switch (id) {
+      case "relaxed":
+        return "Santai (1-2 Bulan)";
+      case "normal":
+        return "Normal (2-4 Minggu)";
+      case "asap":
+        return "Butuh Cepat / ASAP";
+      default:
+        return "Belum ditentukan";
+    }
   };
 
   return (
     <main className="min-h-screen bg-slate-950 text-slate-50 py-12 px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center">
       <div className="max-w-5xl w-full space-y-8">
         
-        {/* Step Indicator */}
-        <div className="flex items-center justify-center space-x-2 sm:space-x-4 text-xs sm:text-sm font-medium text-slate-400">
-          <span className={`px-3 py-1 rounded-full transition-colors ${step === 1 ? "bg-blue-600 text-white font-semibold" : "bg-slate-800 text-slate-400"}`}>
-            Langkah 1: Jenis Proyek
-          </span>
-          <span>&rarr;</span>
-          <span className={`px-3 py-1 rounded-full transition-colors ${step === 2 ? "bg-blue-600 text-white font-semibold" : "bg-slate-800 text-slate-400"}`}>
-            Langkah 2: Fitur Tambahan
-          </span>
-          <span>&rarr;</span>
-          <span className={`px-3 py-1 rounded-full transition-colors ${step === 3 ? "bg-blue-600 text-white font-semibold" : "bg-slate-800 text-slate-400"}`}>
-            Langkah 3: Detail & Kontak
-          </span>
-        </div>
+        {/* Step Indicator (Steps 1 to 3) */}
+        {step <= 3 && (
+          <div className="flex items-center justify-center space-x-2 sm:space-x-4 text-xs sm:text-sm font-medium text-slate-400">
+            <span className={`px-3 py-1 rounded-full transition-colors ${step === 1 ? "bg-blue-600 text-white font-semibold" : "bg-slate-800 text-slate-400"}`}>
+              Langkah 1: Jenis Proyek
+            </span>
+            <span>&rarr;</span>
+            <span className={`px-3 py-1 rounded-full transition-colors ${step === 2 ? "bg-blue-600 text-white font-semibold" : "bg-slate-800 text-slate-400"}`}>
+              Langkah 2: Fitur Tambahan
+            </span>
+            <span>&rarr;</span>
+            <span className={`px-3 py-1 rounded-full transition-colors ${step === 3 ? "bg-blue-600 text-white font-semibold" : "bg-slate-800 text-slate-400"}`}>
+              Langkah 3: Detail & Kontak
+            </span>
+          </div>
+        )}
 
         {/* STEP 1: Pilih Jenis Proyek */}
         {step === 1 && (
@@ -241,6 +258,92 @@ export default function HomePage() {
               </button>
             </div>
           </form>
+        )}
+
+        {/* STEP 4: Success Confirmation Screen & Response Summary */}
+        {step === 4 && (
+          <div className="space-y-8 max-w-2xl mx-auto text-center py-4">
+            <div className="flex flex-col items-center justify-center space-y-4">
+              <div className="p-4 bg-emerald-500/10 text-emerald-400 rounded-full border border-emerald-500/20 shadow-lg shadow-emerald-500/10 animate-bounce">
+                <CheckCircle2 className="w-14 h-14" />
+              </div>
+              <h1 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+                Permintaan Estimasi Terkirim! 🎉
+              </h1>
+              <p className="text-slate-400 text-base max-w-lg">
+                Terima kasih, <strong className="text-white">{name}</strong>. Tim agensi kami telah menerima rincian proyek Anda dan akan menghubungi Anda via <strong className="text-blue-400">{contact}</strong>.
+              </p>
+            </div>
+
+            {/* Response Summary Card */}
+            <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 text-left space-y-6 shadow-xl backdrop-blur-sm">
+              <div className="flex items-center justify-between border-b border-slate-800 pb-4">
+                <h2 className="text-lg font-bold text-white flex items-center gap-2">
+                  <Sparkles className="w-5 h-5 text-blue-400" /> Ringkasan Pengajuan Proyek
+                </h2>
+                <span className="text-xs px-2.5 py-1 bg-emerald-500/20 text-emerald-300 font-semibold rounded-full border border-emerald-500/30">
+                  Status: Terverifikasi
+                </span>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-sm">
+                <div>
+                  <span className="text-xs text-slate-400 font-medium block mb-1">Jenis Proyek</span>
+                  <p className="text-white font-semibold text-base">{selectedProjectData?.title || "-"}</p>
+                  <p className="text-slate-400 text-xs mt-0.5">{selectedProjectData?.description}</p>
+                </div>
+
+                <div>
+                  <span className="text-xs text-slate-400 font-medium block mb-1">Target Waktu</span>
+                  <p className="text-white font-semibold text-base">{getTimelineLabel(timeline)}</p>
+                </div>
+
+                <div className="sm:col-span-2">
+                  <span className="text-xs text-slate-400 font-medium block mb-2">
+                    Fitur Tambahan Terpilih ({selectedFeatures.length})
+                  </span>
+                  {selectedFeatures.length > 0 ? (
+                    <div className="flex flex-wrap gap-2">
+                      {selectedFeatures.map((featureId) => {
+                        const feat = additionalFeatures.find((f) => f.id === featureId);
+                        return (
+                          <span
+                            key={featureId}
+                            className="px-3 py-1.5 bg-blue-950/60 border border-blue-800/60 text-blue-300 text-xs font-medium rounded-lg"
+                          >
+                            {feat?.title || featureId}
+                          </span>
+                        );
+                      })}
+                    </div>
+                  ) : (
+                    <p className="text-slate-500 text-xs italic">Tidak ada fitur tambahan khusus yang dipilih.</p>
+                  )}
+                </div>
+
+                <div className="sm:col-span-2 pt-4 border-t border-slate-800/80 flex flex-col sm:flex-row justify-between text-xs text-slate-400 gap-2">
+                  <div>
+                    <span>Nama Klien: </span>
+                    <strong className="text-slate-200">{name}</strong>
+                  </div>
+                  <div>
+                    <span>Kontak Utama: </span>
+                    <strong className="text-slate-200">{contact}</strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="pt-2 flex justify-center">
+              <button
+                type="button"
+                onClick={() => resetForm()}
+                className="px-6 py-3 rounded-xl font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition-all duration-200 flex items-center gap-2 cursor-pointer text-sm"
+              >
+                <RotateCcw className="w-4 h-4" /> Buat Pengajuan Baru
+              </button>
+            </div>
+          </div>
         )}
 
       </div>

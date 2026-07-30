@@ -16,6 +16,7 @@ interface FormContextType {
   setName: (name: string) => void;
   contact: string;
   setContact: (contact: string) => void;
+  resetForm: () => void;
 }
 
 const FormContext = createContext<FormContextType | undefined>(undefined);
@@ -36,6 +37,15 @@ export function FormProvider({ children }: { children: ReactNode }) {
     );
   };
 
+  const resetForm = () => {
+    setSelectedProject(null);
+    setSelectedFeatures([]);
+    setTimeline("");
+    setName("");
+    setContact("");
+    setStep(1);
+  };
+
   return (
     <FormContext.Provider
       value={{
@@ -52,6 +62,7 @@ export function FormProvider({ children }: { children: ReactNode }) {
         setName,
         contact,
         setContact,
+        resetForm,
       }}
     >
       {children}
