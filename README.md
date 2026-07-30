@@ -1,81 +1,58 @@
-# Client Onboarding & Project Discovery Form
+# TukangWeb — Dynamic Onboarding & Agency Lead Capture 🚀
 
-Aplikasi web interaktif Single Page Application (SPA) berbasis Next.js dan Tailwind CSS yang dirancang untuk menyederhanakan proses pengumpulan *requirement* proyek web development dari calon klien melalui antarmuka visual berbasis kartu (Card/Menu Selection).
+![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![Framer Motion](https://img.shields.io/badge/Framer_Motion-0055FF?style=for-the-badge&logo=framer&logoColor=white)
 
----
+## 📌 Overview
 
-## 🎯 Fitur Utama
+**TukangWeb Onboarding System** is a modern, high-conversion agency lead capture and client onboarding application. Built on a Single Page Application (SPA) architecture, it acts as a dynamic wizard designed to seamlessly guide potential clients through service selection, feature customization, and initial project timeline scoping before routing them securely as highly qualified leads.
 
-1. **Card/Menu Selection UI:** Pengalaman pengisian form bebas esai kosong, digantikan dengan kartu interaktif visual.
-2. **Multi-Step Form Flow:** Alur terstruktur mulai dari pemilihan jenis proyek, eksplorasi fitur, kesiapan aset, anggaran & timeline, hingga pengiriman data kontak.
-3. **Data & UI Separation:** Seluruh data pertanyaan dan opsi tersimpan secara terpisah di `src/config/onboardingData.ts`.
-4. **State Management Terpusat:** Pengelolaan state menggunakan React Context API + `useReducer` di `src/context/FormContext.tsx`.
-5. **Aksesibilitas & Responsif:** Memenuhi standar WCAG 2.1 AA (navigasi keyboard penuh, ARIA attribute) dan desain mobile-first.
+## ✨ Key Features
 
----
+- **Auto-advance UX:** Frictionless user journey with auto-advancing project type selection, eliminating the need for outdated confirmation buttons.
+- **Conditional Rendering & Contextual Badges:** Smart UI that dynamically renders industry-specific add-ons (e.g., API integrations, Logistics) based on the chosen core project type.
+- **Agency-grade Pricing Flow:** Strategic, consultation-first pricing presentation that hides complex public budgets to encourage high-ticket private negotiations.
+- **Dynamic WhatsApp Lead Routing:** Automatically generates and encodes a highly professional WhatsApp message template containing the client's name, chosen project scope, timeline, and custom notes.
+- **Modern SaaS Aesthetic:** State-of-the-art UI/UX inspired by Claude Desktop's warm palette, utilizing premium typography (Plus Jakarta Sans/Outfit), soft glassmorphism shadows, and silky smooth transitions via Framer Motion.
 
-## 🛠️ Tech Stack
+## 🛠 Tech Stack
 
-- **Framework:** [Next.js 14](https://nextjs.org/) (App Router)
-- **Styling:** [Tailwind CSS](https://tailwindcss.com/)
-- **Iconography:** [Lucide Icons](https://lucide.dev/)
-- **Language:** [TypeScript](https://www.typescriptlang.org/)
-- **State Management:** React Context API & `useReducer`
+This project leverages the bleeding edge of the modern web ecosystem:
+- **Framework:** Next.js (App Router)
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS
+- **Animations:** Framer Motion
+- **Icons:** Lucide React
 
----
+## 🚀 Getting Started
 
-## 📁 Struktur Direktori
+Follow these simple steps to run this project locally on your machine.
 
-```text
-client-onboarding-discovery-form/
-├── .cursorrules           # Aturan AI & konvensi pengkodean
-├── docs/                  # Dokumentasi arsitektur proyek
-│   ├── PRD.md             # Product Requirements Document
-│   └── USER_STORY.md      # User Stories & Acceptance Criteria (Agile)
-├── src/
-│   ├── app/               # Routing & layout utama (Next.js App Router)
-│   ├── components/        # Komponen UI modular
-│   │   ├── ui/            # Komponen dasar (Button, Card, Input)
-│   │   └── form/          # Komponen alur onboarding
-│   ├── config/            # Data statis & opsi form (onboardingData.ts)
-│   ├── context/           # FormContext & State Management
-│   └── utils/             # Helper & payload builder
-└── README.md
-```
+### Prerequisites
+Make sure you have [Node.js](https://nodejs.org/) installed on your machine.
 
----
+### Installation
 
-## 🚀 Memulai Proyek secara Lokal
-
-### Prasyarat
-
-- Node.js versi 18.x atau lebih baru
-- npm, yarn, atau pnpm
-
-### Langkah-langkah
-
-1. **Clone Repositori:**
+1. **Clone the repository**
    ```bash
-   git clone <repository-url>
-   cd "Client Onboarding & Project Discovery Form"
+   git clone https://github.com/indrabaydhowi/client-onboarding-discovery-form.git
+   cd client-onboarding-discovery-form
    ```
 
-2. **Install Dependensi:**
+2. **Install dependencies**
    ```bash
    npm install
    ```
 
-3. **Jalankan Server Pengembang:**
+3. **Run the development server**
    ```bash
    npm run dev
    ```
 
-4. **Buka di Browser:**
-   Akses `http://localhost:3000` melalui peramban web Anda.
+4. **View the Application**
+   Open your browser and navigate to [http://localhost:3000](http://localhost:3000) to see the application in action.
 
 ---
-
-## 📄 Dokumentasi Terkait
-
-- [Product Requirements Document (PRD)](file:///docs/PRD.md)
-- [User Stories & Acceptance Criteria](file:///docs/USER_STORY.md)
+*Crafted with precision for high-converting agency experiences.*
