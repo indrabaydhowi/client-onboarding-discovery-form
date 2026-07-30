@@ -56,6 +56,28 @@ export default function HomePage() {
     }
   };
 
+  const handleWhatsAppClick = () => {
+    const projectName = selectedProjectData?.title || "Kustom Web";
+    const featureNames = selectedFeatures.map((id) => {
+      const feat = additionalFeatures.find((f) => f.id === id);
+      return feat?.title || id;
+    });
+    const featuresList = featureNames.length > 0 ? featureNames.join(", ") : "Tidak ada";
+    const clientName = name || "Klien";
+    const clientTimeline = getTimelineLabel(timeline);
+
+    const message = `Halo, saya *${clientName}*. Saya baru saja mengajukan estimasi proyek melalui website.\n\n` +
+                    `• *Jenis Proyek:* ${projectName}\n` +
+                    `• *Fitur Tambahan:* ${featuresList}\n` +
+                    `• *Timeline:* ${clientTimeline}\n\n` +
+                    `Mohon informasikan estimasi rincian biaya dan kelanjutannya. Terima kasih!`;
+
+    const phoneNumber = "6281234567890";
+
+    const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    window.open(url, '_blank');
+  };
+
   return (
     <main className="min-h-screen bg-slate-950 text-slate-50 py-12 px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center">
       <div className="max-w-5xl w-full space-y-8">
@@ -153,14 +175,13 @@ export default function HomePage() {
 
             {/* WhatsApp Consultation Action Button */}
             <div className="pt-2 flex justify-center">
-              <a
-                href="https://wa.me/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-6 py-3.5 rounded-xl font-semibold bg-emerald-600 hover:bg-emerald-500 text-white shadow-lg shadow-emerald-600/20 transition-all duration-200 flex items-center gap-2.5 text-sm hover:scale-[1.02]"
+              <button
+                type="button"
+                onClick={handleWhatsAppClick}
+                className="px-6 py-3.5 rounded-xl font-semibold bg-emerald-600 hover:bg-emerald-500 text-white shadow-lg shadow-emerald-600/20 transition-all duration-200 flex items-center gap-2.5 text-sm hover:scale-[1.02] cursor-pointer"
               >
                 <MessageCircle className="w-5 h-5" /> Konsultasi Langsung via WhatsApp
-              </a>
+              </button>
             </div>
           </div>
         ) : (
