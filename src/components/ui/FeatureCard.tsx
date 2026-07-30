@@ -56,12 +56,12 @@ export default function FeatureCard({
         )}
       </div>
       <div className={`p-2.5 rounded-xl flex-shrink-0 transition-colors duration-300 ease-out ${
-        isSelected ? "bg-amber-50 text-amber-700" : "bg-stone-50 text-stone-500"
+        isSelected ? "bg-amber-50 text-amber-800" : "bg-stone-50 text-stone-500"
       }`}>
         <IconComponent className="w-5 h-5" strokeWidth={1.5} />
       </div>
       <div className="min-w-0">
-        <h3 className={`text-[15px] font-semibold tracking-tight transition-colors duration-300 ease-out ${
+        <h3 className={`text-[15px] font-semibold tracking-tight font-display transition-colors duration-300 ease-out ${
           isSelected ? "text-stone-900" : "text-stone-800"
         }`}>{title}</h3>
         <p className="text-stone-500 text-[13px] leading-snug font-normal mt-0.5">{description}</p>

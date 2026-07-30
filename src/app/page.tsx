@@ -82,6 +82,7 @@ export default function HomePage() {
     if (honeypot) return; // Spam protection
     if (validateForm()) {
       setIsSubmitted(true);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
 
@@ -191,20 +192,30 @@ export default function HomePage() {
         </section>
 
         {/* STATS BAR */}
-        <section className="border-y border-stone-200/60 bg-white">
-          <div className="max-w-4xl mx-auto px-5 py-8 grid grid-cols-3 divide-x divide-stone-100 text-center">
+        <section className="border-y border-stone-200/60 bg-white relative">
+          {SHOW_DUMMY_WATERMARK && (
+            <div className="absolute top-4 left-4 bg-red-100 text-red-600 px-3 py-1 rounded-full text-[10px] font-bold tracking-widest border border-red-200 z-20 uppercase shadow-sm">
+              ⚠️ Dummy
+            </div>
+          )}
+          <div className="max-w-4xl mx-auto px-5 py-8 grid grid-cols-3 divide-x divide-stone-100 text-center relative z-10">
             {dummyStats.map((stat, i) => (
               <div key={i} className="flex flex-col items-center justify-center space-y-1">
                 <span className="text-2xl sm:text-3xl font-bold text-stone-900">{stat.value}</span>
-                <span className="text-[10px] sm:text-xs text-stone-400 font-medium uppercase tracking-wider">{stat.label}</span>
+                <span className="text-[10px] sm:text-xs text-stone-500 font-medium uppercase tracking-wider">{stat.label}</span>
               </div>
             ))}
           </div>
         </section>
 
         {/* SERVICES SECTION */}
-        <section className="py-20 px-5 sm:px-8 max-w-6xl mx-auto space-y-10">
-          <div className="text-center space-y-3">
+        <section className="py-20 px-5 sm:px-8 max-w-6xl mx-auto space-y-10 relative">
+          {SHOW_DUMMY_WATERMARK && (
+            <div className="absolute top-4 right-4 bg-red-100 text-red-600 px-4 py-1.5 rounded-full text-xs font-bold tracking-widest border border-red-200 z-20 uppercase shadow-sm">
+              ⚠️ Contoh Tampilan / Dummy Data
+            </div>
+          )}
+          <div className="text-center space-y-3 relative z-10">
             <h2 className="text-3xl font-bold text-stone-900 tracking-tight font-display">Layanan yang Tersedia</h2>
             <p className="text-stone-500">Pilih dari layanan inti ini, dan sesuaikan dengan kebutuhan Anda nanti.</p>
           </div>
@@ -216,7 +227,7 @@ export default function HomePage() {
                   <p className="text-sm text-stone-500 leading-relaxed">{project.description}</p>
                 </div>
                 <div className="pt-6 mt-auto">
-                  <span className="inline-flex px-3 py-1 bg-amber-50 text-amber-900 text-xs font-semibold rounded-md border border-amber-200/60">
+                  <span className="inline-flex px-3 py-1 bg-amber-50 text-amber-950 text-xs font-semibold rounded-md border border-amber-200/60">
                     {dummyPrices[project.id]}
                   </span>
                 </div>
@@ -351,7 +362,7 @@ export default function HomePage() {
                 >
                   <CheckCircle2 className="w-12 h-12" strokeWidth={1.5} />
                 </motion.div>
-                <h1 className="text-2xl sm:text-3xl font-bold text-stone-900 tracking-tight leading-tight">
+                <h1 className="text-2xl sm:text-3xl font-bold text-stone-900 tracking-tight leading-tight font-display">
                   Permintaan proyek Anda sudah kami terima
                 </h1>
                 <p className="text-stone-500 text-[15px] max-w-md mx-auto leading-relaxed">

@@ -46,12 +46,12 @@ export default function ProjectCard({
         {isSelected && <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="w-2 h-2 rounded-full bg-white" />}
       </div>
       <div className={`p-2.5 rounded-xl w-fit transition-colors duration-300 ease-out ${
-        isSelected ? "bg-amber-50 text-amber-700" : "bg-stone-50 text-stone-500"
+        isSelected ? "bg-amber-50 text-amber-800" : "bg-stone-50 text-stone-500"
       }`}>
         <IconComponent className="w-5 h-5" strokeWidth={1.5} />
       </div>
       <div className="space-y-1.5">
-        <h3 className={`text-lg font-semibold tracking-tight transition-colors duration-300 ease-out ${
+        <h3 className={`text-lg font-semibold tracking-tight font-display transition-colors duration-300 ease-out ${
           isSelected ? "text-stone-900" : "text-stone-800"
         }`}>{title}</h3>
         <p className="text-stone-500 text-[13px] leading-relaxed font-normal">{description}</p>
