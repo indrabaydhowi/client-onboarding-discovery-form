@@ -1,4 +1,5 @@
-import { projectTypes } from '@/config/onboardingData';
+// @ts-ignore
+import { projectTypes } from '@/config/onboardingData.js';
 import ProjectCard from '@/components/ui/ProjectCard';
 
 /**

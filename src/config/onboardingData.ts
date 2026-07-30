@@ -6,7 +6,7 @@ export interface ProjectTypeOption {
   id: string;
   title: string;
   description: string;
-  iconName: string;
+  icon: string;
 }
 
 export interface FeatureOption {
@@ -38,27 +38,21 @@ export interface TimelineOption {
 export const projectTypes: ProjectTypeOption[] = [
   {
     id: "landing-page",
-    title: "Landing Page Singkat",
-    description: "Halaman tunggal terfokus untuk promosi produk, event, atau perkenalan layanan.",
-    iconName: "Layout",
+    title: "Landing Page",
+    description: "Website satu halaman untuk promosi atau profil bisnis.",
+    icon: "Layout",
   },
   {
-    id: "company-profile",
-    title: "Website Bisnis / Company Profile",
-    description: "Website multi-halaman untuk membangun kredibilitas dan profil perusahaan.",
-    iconName: "Building2",
+    id: "data-management",
+    title: "Manajemen Data",
+    description: "Aplikasi web dengan dashboard untuk mengelola data internal.",
+    icon: "Database",
   },
   {
-    id: "ecommerce",
-    title: "Toko Online / E-Commerce",
-    description: "Website dengan katalog produk, keranjang belanja, dan sistem pembayaran.",
-    iconName: "ShoppingBag",
-  },
-  {
-    id: "custom-app",
-    title: "Aplikasi Web Kustom",
-    description: "Sistem web dengan kebutuhan khusus, portal pengguna, atau alur kerja kompleks.",
-    iconName: "Code2",
+    id: "e-commerce",
+    title: "Toko Online",
+    description: "Website lengkap dengan keranjang belanja dan pembayaran.",
+    icon: "ShoppingCart",
   },
 ];
 
