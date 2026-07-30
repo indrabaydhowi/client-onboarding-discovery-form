@@ -27,3 +27,36 @@ export const projectTypes = [
     icon: "ShoppingCart",
   },
 ];
+
+export const additionalFeatures = [
+  {
+    id: "seo-analytics",
+    title: "SEO & Analytics",
+    description: "Optimasi pencarian Google dan pelacakan statistik pengunjung.",
+    icon: "Search",
+  },
+  {
+    id: "copywriting",
+    title: "Copywriting",
+    description: "Penulisan teks website profesional dan persuasif.",
+    icon: "PenTool",
+  },
+  {
+    id: "payment-gateway",
+    title: "Payment Gateway",
+    description: "Integrasi pembayaran otomatis (Transfer Bank, e-Wallet, Kartu Kredit).",
+    icon: "CreditCard",
+  },
+  {
+    id: "export-report",
+    title: "Export Laporan",
+    description: "Fitur unduh data ke format PDF atau Excel.",
+    icon: "FileDown",
+  },
+  {
+    id: "cms",
+    title: "Content Management",
+    description: "Dashboard agar Anda bisa mengubah teks dan gambar sendiri.",
+    icon: "Settings",
+  },
+];
