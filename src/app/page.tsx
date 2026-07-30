@@ -1,12 +1,16 @@
-// @ts-ignore
-import { projectTypes } from '@/config/onboardingData.js';
+"use client";
+
+import { projectTypes } from '@/config/onboardingData';
 import ProjectCard from '@/components/ui/ProjectCard';
+import { useFormContext } from '@/context/FormContext';
 
 /**
  * HomePage Component
  * Menampilkan grid kartu jenis proyek interaktif.
  */
 export default function HomePage() {
+  const { selectedProject, setSelectedProject } = useFormContext();
+
   return (
     <main className="min-h-screen bg-slate-950 text-slate-50 py-12 px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center">
       <div className="max-w-5xl w-full space-y-8">
@@ -26,6 +30,8 @@ export default function HomePage() {
               title={project.title}
               description={project.description}
               iconName={project.icon}
+              isSelected={selectedProject === project.id}
+              onClick={() => setSelectedProject(project.id)}
             />
           ))}
         </div>
