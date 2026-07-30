@@ -46,10 +46,10 @@ export default function FeatureCard({
           : "bg-white border border-stone-200/80 shadow-sm hover:shadow-md hover:shadow-stone-200/40 hover:border-stone-300"
       }`}
     >
-      <div className={`p-2.5 rounded-lg flex-shrink-0 transition-colors duration-300 ease-out ${
+      <div className={`p-2.5 rounded-xl flex-shrink-0 transition-colors duration-300 ease-out ${
         isSelected ? "bg-amber-50 text-amber-700" : "bg-stone-50 text-stone-500"
       }`}>
-        <IconComponent className="w-5 h-5" strokeWidth={1.8} />
+        <IconComponent className="w-5 h-5" strokeWidth={1.5} />
       </div>
       <div className="min-w-0">
         <h3 className={`text-[15px] font-semibold tracking-tight transition-colors duration-300 ease-out ${

@@ -154,7 +154,7 @@ export default function HomePage() {
               <div className="bg-white border border-stone-200/80 rounded-2xl p-6 text-left shadow-sm">
                 <div className="flex items-center justify-between border-b border-stone-100 pb-4 mb-5">
                   <h2 className="text-sm font-semibold text-stone-800 flex items-center gap-2">
-                    <Sparkles className="w-4 h-4 text-amber-500" /> Ringkasan
+                    <Sparkles className="w-4 h-4 text-amber-500" strokeWidth={1.5} /> Ringkasan
                   </h2>
                   <span className="text-[11px] px-2 py-0.5 bg-emerald-50 text-emerald-700 font-medium rounded-full">
                     Terkirim
@@ -211,7 +211,7 @@ export default function HomePage() {
                   onClick={handleWhatsAppClick}
                   className="inline-flex items-center gap-2 px-5 py-3 rounded-xl font-medium bg-emerald-600 hover:bg-emerald-700 text-white text-sm shadow-sm transition-colors duration-200 cursor-pointer"
                 >
-                  <MessageCircle className="w-4 h-4" strokeWidth={2} /> Hubungi via WhatsApp
+                  <MessageCircle className="w-4 h-4" strokeWidth={1.5} /> Hubungi via WhatsApp
                 </motion.button>
               </div>
             </motion.div>

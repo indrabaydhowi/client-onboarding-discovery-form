@@ -43,7 +43,7 @@ export default function ProjectCard({
       <div className={`p-2.5 rounded-xl w-fit transition-colors duration-300 ease-out ${
         isSelected ? "bg-amber-50 text-amber-700" : "bg-stone-50 text-stone-500"
       }`}>
-        <IconComponent className="w-5 h-5" strokeWidth={1.8} />
+        <IconComponent className="w-5 h-5" strokeWidth={1.5} />
       </div>
       <div className="space-y-1.5">
         <h3 className={`text-lg font-semibold tracking-tight transition-colors duration-300 ease-out ${
