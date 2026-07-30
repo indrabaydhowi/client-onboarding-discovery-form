@@ -1,9 +1,5 @@
 // DUMMY_DATA — REPLACE_BEFORE_LAUNCH
 // File ini berisi semua data dummy untuk keperluan tampilan awal (Landing Page).
-// Pastikan untuk mengganti data ini dengan data asli sebelum rilis publik.
-
-export const SHOW_DUMMY_WATERMARK = true;
-
 export const dummyPrices: Record<string, string> = {
   "landing-page": "mulai dari Rp 1.500.000",
   "company-profile": "mulai dari Rp 3.500.000",

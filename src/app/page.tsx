@@ -3,7 +3,7 @@
 import React from 'react';
 
 import { projectTypes, additionalFeatures } from '@/config/onboardingData';
-import { dummyPrices, whyChooseMe, dummyTestimonials, dummyStats, SHOW_DUMMY_WATERMARK } from '@/config/dummyData';
+import { dummyPrices, whyChooseMe, dummyTestimonials, dummyStats } from '@/config/dummyData';
 import ProjectCard from '@/components/ui/ProjectCard';
 import FeatureCard from '@/components/ui/FeatureCard';
 import { useFormContext } from '@/context/FormContext';
@@ -175,29 +175,57 @@ export default function HomePage() {
                 <div className="w-3 h-3 rounded-full bg-stone-300"></div>
                 <div className="mx-auto w-1/3 h-5 bg-stone-200/70 rounded-md"></div>
               </div>
-              {/* Browser Content (Wireframe) */}
-              <div className="h-64 sm:h-80 lg:h-96 bg-stone-100 p-8 flex flex-col gap-6 relative overflow-hidden">
-                <div className="w-1/2 h-8 bg-stone-200 rounded-lg"></div>
-                <div className="w-3/4 h-4 bg-stone-200 rounded"></div>
-                <div className="w-2/3 h-4 bg-stone-200 rounded"></div>
-                <div className="mt-auto grid grid-cols-3 gap-4">
-                  <div className="h-24 bg-white rounded-lg border border-stone-200 shadow-sm"></div>
-                  <div className="h-24 bg-white rounded-lg border border-stone-200 shadow-sm"></div>
-                  <div className="h-24 bg-white rounded-lg border border-stone-200 shadow-sm"></div>
+              {/* Browser Content (Realistic Mockup) */}
+              <div className="h-64 sm:h-80 lg:h-96 bg-stone-50 p-6 sm:p-8 flex flex-col gap-6 relative overflow-hidden">
+                {/* Mock Header */}
+                <div className="flex justify-between items-center pb-4 border-b border-stone-100">
+                  <div className="w-20 h-5 bg-amber-600/90 rounded-md"></div>
+                  <div className="flex gap-3">
+                    <div className="w-10 h-3 bg-stone-200 rounded-full"></div>
+                    <div className="w-10 h-3 bg-stone-200 rounded-full"></div>
+                    <div className="w-12 h-3 bg-amber-200 text-amber-800 rounded-full"></div>
+                  </div>
                 </div>
-                <div className="absolute inset-0 bg-gradient-to-t from-stone-100 via-transparent to-transparent z-10"></div>
+                {/* Mock Hero */}
+                <div className="flex gap-6 items-center flex-grow">
+                  <div className="w-1/2 space-y-4">
+                    <div className="w-full h-8 sm:h-10 bg-stone-800 rounded-lg"></div>
+                    <div className="w-4/5 h-8 sm:h-10 bg-stone-800 rounded-lg"></div>
+                    <div className="w-3/4 h-3 bg-stone-300 rounded mt-4"></div>
+                    <div className="w-2/3 h-3 bg-stone-300 rounded"></div>
+                    <div className="w-24 h-8 bg-amber-500 rounded-md mt-4"></div>
+                  </div>
+                  <div className="w-1/2 h-full bg-amber-100 rounded-xl border border-amber-200/50 flex items-center justify-center overflow-hidden relative">
+                     <div className="absolute inset-0 bg-gradient-to-br from-amber-300/20 to-transparent"></div>
+                     <div className="w-3/4 h-3/4 bg-white/60 rounded-lg shadow-sm border border-white/50 backdrop-blur-sm"></div>
+                  </div>
+                </div>
+                {/* Mock Features */}
+                <div className="mt-auto grid grid-cols-3 gap-4 pt-4">
+                  <div className="h-20 sm:h-24 bg-white rounded-xl border border-stone-200 shadow-sm p-3 flex flex-col gap-2">
+                    <div className="w-6 h-6 bg-amber-100 rounded-full"></div>
+                    <div className="w-1/2 h-2.5 bg-stone-300 rounded-full"></div>
+                    <div className="w-3/4 h-1.5 bg-stone-200 rounded-full"></div>
+                  </div>
+                  <div className="h-20 sm:h-24 bg-white rounded-xl border border-stone-200 shadow-sm p-3 flex flex-col gap-2">
+                    <div className="w-6 h-6 bg-emerald-100 rounded-full"></div>
+                    <div className="w-1/2 h-2.5 bg-stone-300 rounded-full"></div>
+                    <div className="w-3/4 h-1.5 bg-stone-200 rounded-full"></div>
+                  </div>
+                  <div className="h-20 sm:h-24 bg-white rounded-xl border border-stone-200 shadow-sm p-3 flex flex-col gap-2">
+                    <div className="w-6 h-6 bg-blue-100 rounded-full"></div>
+                    <div className="w-1/2 h-2.5 bg-stone-300 rounded-full"></div>
+                    <div className="w-3/4 h-1.5 bg-stone-200 rounded-full"></div>
+                  </div>
+                </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-stone-50 via-transparent to-transparent z-10 pointer-events-none"></div>
               </div>
             </div>
           </motion.div>
         </section>
 
         {/* STATS BAR */}
-        <section className="border-y border-stone-200/60 bg-white relative">
-          {SHOW_DUMMY_WATERMARK && (
-            <div className="absolute top-4 left-4 bg-red-100 text-red-600 px-3 py-1 rounded-full text-[10px] font-bold tracking-widest border border-red-200 z-20 uppercase shadow-sm">
-              ⚠️ Dummy
-            </div>
-          )}
+        <section className="border-y border-stone-200/60 bg-white">
           <div className="max-w-4xl mx-auto px-5 py-8 grid grid-cols-3 divide-x divide-stone-100 text-center relative z-10">
             {dummyStats.map((stat, i) => (
               <div key={i} className="flex flex-col items-center justify-center space-y-1">
@@ -210,11 +238,6 @@ export default function HomePage() {
 
         {/* SERVICES SECTION */}
         <section className="py-20 px-5 sm:px-8 max-w-6xl mx-auto space-y-10 relative">
-          {SHOW_DUMMY_WATERMARK && (
-            <div className="absolute top-4 right-4 bg-red-100 text-red-600 px-4 py-1.5 rounded-full text-xs font-bold tracking-widest border border-red-200 z-20 uppercase shadow-sm">
-              ⚠️ Contoh Tampilan / Dummy Data
-            </div>
-          )}
           <div className="text-center space-y-3 relative z-10">
             <h2 className="text-3xl font-bold text-stone-900 tracking-tight font-display">Layanan yang Tersedia</h2>
             <p className="text-stone-500">Pilih dari layanan inti ini, dan sesuaikan dengan kebutuhan Anda nanti.</p>
@@ -230,11 +253,6 @@ export default function HomePage() {
                   <span className="inline-flex px-3 py-1 bg-amber-50 text-amber-950 text-xs font-semibold rounded-md border border-amber-200/60">
                     {dummyPrices[project.id]}
                   </span>
-                  {SHOW_DUMMY_WATERMARK && (
-                    <span className="inline-flex px-2 py-0.5 bg-red-100 text-red-600 text-[9px] font-bold tracking-widest border border-red-200 uppercase rounded-sm shadow-sm">
-                      DUMMY
-                    </span>
-                  )}
                 </div>
               </div>
             ))}
@@ -268,11 +286,6 @@ export default function HomePage() {
 
         {/* PROJECTS / SOCIAL PROOF */}
         <section id="projects" className="py-24 px-5 sm:px-8 max-w-6xl mx-auto space-y-12 relative">
-          {SHOW_DUMMY_WATERMARK && (
-            <div className="absolute top-4 left-1/2 -translate-x-1/2 bg-red-100 text-red-600 px-4 py-1.5 rounded-full text-xs font-bold tracking-widest border border-red-200 z-20 uppercase shadow-sm">
-              ⚠️ Contoh Tampilan / Dummy Data
-            </div>
-          )}
           <div className="text-center space-y-3 relative z-10">
             <h2 className="text-3xl font-bold text-stone-900 tracking-tight font-display">Beberapa Proyek yang Sudah Saya Kerjakan</h2>
             <p className="text-stone-500">Hasil kolaborasi dengan klien-klien luar biasa.</p>
