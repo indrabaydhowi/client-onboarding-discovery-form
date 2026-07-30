@@ -3,7 +3,7 @@
 import React from 'react';
 
 import { projectTypes, additionalFeatures } from '@/config/onboardingData';
-import { dummyPrices, whyChooseMe, dummyTestimonials, dummyStats } from '@/config/dummyData';
+import { dummyPrices, whyChooseMe, dummyTestimonials, dummyStats, SHOW_DUMMY_WATERMARK } from '@/config/dummyData';
 import ProjectCard from '@/components/ui/ProjectCard';
 import FeatureCard from '@/components/ui/FeatureCard';
 import { useFormContext } from '@/context/FormContext';
@@ -61,12 +61,12 @@ export default function HomePage() {
     
     const contactStr = contact.trim();
     const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contactStr);
-    const isWA = /^(\+62|62|0)8[1-9][0-9]{6,10}$/.test(contactStr);
+    const isWA = /^(\+62|62|0)8[0-9]{8,11}$/.test(contactStr);
     
     if (!contactStr) {
       newErrors.contact = "Kontak wajib diisi";
     } else if (!isEmail && !isWA) {
-      newErrors.contact = "Gunakan email atau nomor WA (08/+62) yang valid";
+      newErrors.contact = "Gunakan email atau nomor WA valid (10-13 digit)";
     }
 
     if (!consent) {
@@ -136,26 +136,57 @@ export default function HomePage() {
     return (
       <main className="min-h-screen text-stone-800 pb-20">
         {/* HERO SECTION */}
-        <section className="pt-24 pb-16 px-5 sm:px-8 max-w-5xl mx-auto text-center space-y-8">
-          <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-stone-900 leading-tight mx-auto max-w-4xl">
+        <section className="pt-24 pb-20 px-5 sm:px-8 max-w-5xl mx-auto text-center space-y-12">
+          <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="space-y-6">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-stone-900 leading-[1.1] mx-auto max-w-4xl font-display">
               Website yang Bukan Cuma Bagus Dilihat, Tapi <span className="text-amber-600">Bekerja untuk Bisnis Anda</span>
             </h1>
-            <p className="mt-6 text-lg sm:text-xl text-stone-500 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-lg sm:text-xl text-stone-500 max-w-2xl mx-auto leading-relaxed">
               Dari landing page yang mengonversi sampai sistem manajemen data yang rumit — saya bantu wujudkan aplikasi web Anda dengan proses yang jelas, transparan, dan tanpa drama.
             </p>
           </motion.div>
           
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2, duration: 0.5 }} className="pt-4 space-y-4">
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2, duration: 0.5 }} className="space-y-4">
             <button 
               onClick={() => setIsWizardStarted(true)}
               className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full font-bold text-white bg-amber-600 hover:bg-amber-700 shadow-lg shadow-amber-600/20 transition-all hover:scale-105 active:scale-95"
             >
               Mulai Proyek Anda <ArrowRight className="w-5 h-5" />
             </button>
-            <p className="text-xs text-stone-400 font-medium tracking-wide">
+            <p className="text-xs text-stone-400 font-medium tracking-wide block">
               Tanpa komitmen — isi kebutuhan Anda dulu, estimasi biaya dikirim privat dalam 1×24 jam.
             </p>
+          </motion.div>
+
+          {/* Visual Hero Mockup */}
+          <motion.div 
+            initial={{ opacity: 0, y: 40 }} 
+            animate={{ opacity: 1, y: 0 }} 
+            transition={{ delay: 0.4, duration: 0.7, type: "spring", stiffness: 100 }}
+            className="w-full max-w-4xl mx-auto mt-12 hidden sm:block relative group"
+          >
+            <div className="absolute inset-0 bg-gradient-to-tr from-amber-200/40 via-transparent to-stone-200/40 blur-3xl -z-10 rounded-full opacity-50 group-hover:opacity-80 transition-opacity duration-700"></div>
+            <div className="rounded-xl overflow-hidden border border-stone-200/80 shadow-2xl bg-white flex flex-col">
+              {/* Browser Header */}
+              <div className="bg-stone-50 border-b border-stone-200 px-4 py-3 flex items-center gap-2">
+                <div className="w-3 h-3 rounded-full bg-stone-300"></div>
+                <div className="w-3 h-3 rounded-full bg-stone-300"></div>
+                <div className="w-3 h-3 rounded-full bg-stone-300"></div>
+                <div className="mx-auto w-1/3 h-5 bg-stone-200/70 rounded-md"></div>
+              </div>
+              {/* Browser Content (Wireframe) */}
+              <div className="h-64 sm:h-80 lg:h-96 bg-stone-100 p-8 flex flex-col gap-6 relative overflow-hidden">
+                <div className="w-1/2 h-8 bg-stone-200 rounded-lg"></div>
+                <div className="w-3/4 h-4 bg-stone-200 rounded"></div>
+                <div className="w-2/3 h-4 bg-stone-200 rounded"></div>
+                <div className="mt-auto grid grid-cols-3 gap-4">
+                  <div className="h-24 bg-white rounded-lg border border-stone-200 shadow-sm"></div>
+                  <div className="h-24 bg-white rounded-lg border border-stone-200 shadow-sm"></div>
+                  <div className="h-24 bg-white rounded-lg border border-stone-200 shadow-sm"></div>
+                </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-stone-100 via-transparent to-transparent z-10"></div>
+              </div>
+            </div>
           </motion.div>
         </section>
 
@@ -174,18 +205,18 @@ export default function HomePage() {
         {/* SERVICES SECTION */}
         <section className="py-20 px-5 sm:px-8 max-w-6xl mx-auto space-y-10">
           <div className="text-center space-y-3">
-            <h2 className="text-3xl font-bold text-stone-900 tracking-tight">Layanan yang Tersedia</h2>
+            <h2 className="text-3xl font-bold text-stone-900 tracking-tight font-display">Layanan yang Tersedia</h2>
             <p className="text-stone-500">Pilih dari layanan inti ini, dan sesuaikan dengan kebutuhan Anda nanti.</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {projectTypes.map((project) => (
               <div key={project.id} className="relative rounded-2xl p-6 bg-white border border-stone-200/80 shadow-sm flex flex-col h-full hover:border-amber-300 transition-colors">
                 <div className="space-y-4 flex-grow">
-                  <h3 className="text-lg font-bold text-stone-900">{project.title}</h3>
+                  <h3 className="text-lg font-bold text-stone-900 font-display">{project.title}</h3>
                   <p className="text-sm text-stone-500 leading-relaxed">{project.description}</p>
                 </div>
                 <div className="pt-6 mt-auto">
-                  <span className="inline-flex px-3 py-1 bg-amber-50 text-amber-800 text-xs font-semibold rounded-md border border-amber-200/60">
+                  <span className="inline-flex px-3 py-1 bg-amber-50 text-amber-900 text-xs font-semibold rounded-md border border-amber-200/60">
                     {dummyPrices[project.id]}
                   </span>
                 </div>
@@ -198,7 +229,7 @@ export default function HomePage() {
         <section className="py-20 px-5 sm:px-8 bg-stone-900 text-stone-50">
           <div className="max-w-6xl mx-auto space-y-12">
             <div className="text-center">
-              <h2 className="text-3xl font-bold tracking-tight text-white">Kenapa Memilih Saya</h2>
+              <h2 className="text-3xl font-bold tracking-tight text-white font-display">Kenapa Memilih Saya</h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 max-w-4xl mx-auto">
               {whyChooseMe.map((item, i) => {
@@ -209,7 +240,7 @@ export default function HomePage() {
                       <Icon className="w-6 h-6 text-amber-500" />
                     </div>
                     <div className="space-y-2">
-                      <h3 className="text-lg font-bold text-white">{item.title}</h3>
+                      <h3 className="text-lg font-bold text-white font-display">{item.title}</h3>
                       <p className="text-stone-400 text-sm leading-relaxed">{item.description}</p>
                     </div>
                   </div>
@@ -220,12 +251,17 @@ export default function HomePage() {
         </section>
 
         {/* PROJECTS / SOCIAL PROOF */}
-        <section id="projects" className="py-24 px-5 sm:px-8 max-w-6xl mx-auto space-y-12">
-          <div className="text-center space-y-3">
-            <h2 className="text-3xl font-bold text-stone-900 tracking-tight">Beberapa Proyek yang Sudah Saya Kerjakan</h2>
+        <section id="projects" className="py-24 px-5 sm:px-8 max-w-6xl mx-auto space-y-12 relative">
+          {SHOW_DUMMY_WATERMARK && (
+            <div className="absolute top-4 left-1/2 -translate-x-1/2 bg-red-100 text-red-600 px-4 py-1.5 rounded-full text-xs font-bold tracking-widest border border-red-200 z-20 uppercase shadow-sm">
+              ⚠️ Contoh Tampilan / Dummy Data
+            </div>
+          )}
+          <div className="text-center space-y-3 relative z-10">
+            <h2 className="text-3xl font-bold text-stone-900 tracking-tight font-display">Beberapa Proyek yang Sudah Saya Kerjakan</h2>
             <p className="text-stone-500">Hasil kolaborasi dengan klien-klien luar biasa.</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 relative z-10">
             {dummyTestimonials.map((t, i) => (
               <div key={i} className="bg-white p-6 rounded-2xl border border-stone-200/80 shadow-sm flex flex-col h-full space-y-6 relative">
                 <span className="text-6xl text-stone-100 absolute top-4 right-6 font-serif leading-none">"</span>
@@ -233,21 +269,21 @@ export default function HomePage() {
                   "{t.quote}"
                 </p>
                 <div className="pt-4 border-t border-stone-100">
-                  <p className="font-bold text-stone-900 text-sm">{t.author}</p>
+                  <p className="font-bold text-stone-900 text-sm font-display">{t.author}</p>
                   <p className="text-xs text-stone-400">{t.role}</p>
                 </div>
               </div>
             ))}
           </div>
-          <div className="pt-8 text-center">
+          <div className="pt-8 text-center relative z-10">
             <button 
               onClick={() => {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
                 setIsWizardStarted(true);
               }}
-              className="px-6 py-3 rounded-full font-bold text-stone-700 bg-stone-100 hover:bg-stone-200 transition-colors text-sm"
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full font-bold text-white bg-amber-600 hover:bg-amber-700 shadow-md shadow-amber-600/20 transition-all hover:scale-105 active:scale-95"
             >
-              Mulai Proyek Anda Sekarang
+              Mulai Proyek Anda Sekarang <ArrowRight className="w-5 h-5" />
             </button>
           </div>
         </section>
@@ -427,14 +463,15 @@ export default function HomePage() {
             <motion.div
               key="step-1"
               {...pageTransition}
-              className="space-y-10 bg-white p-6 sm:p-8 rounded-2xl border border-stone-200/80 shadow-sm"
+              className="space-y-10 bg-white p-6 sm:p-8 rounded-2xl border border-stone-200/80 shadow-sm relative overflow-hidden"
             >
+              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-stone-200 via-amber-400 to-stone-200"></div>
               <div className="text-center space-y-3 max-w-lg mx-auto">
-                <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-stone-900">
-                  Mulai dari sini
-                </h1>
-                <p className="text-stone-500 text-[15px] leading-relaxed">
-                  Pilih jenis proyek yang paling menggambarkan kebutuhan Anda. Nanti kita sesuaikan bersama.
+                <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-stone-900 font-display">
+                  Apa jenis proyek yang Anda butuhkan?
+                </h2>
+                <p className="text-stone-500">
+                  Pilih salah satu yang paling mendekati, kita bisa sesuaikan detailnya nanti.
                 </p>
               </div>
 
@@ -459,13 +496,14 @@ export default function HomePage() {
             <motion.div
               key="step-2"
               {...pageTransition}
-              className="space-y-8 bg-white p-6 sm:p-8 rounded-2xl border border-stone-200/80 shadow-sm"
+              className="space-y-8 bg-white p-6 sm:p-8 rounded-2xl border border-stone-200/80 shadow-sm relative overflow-hidden"
             >
+              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-amber-400 via-amber-500 to-stone-200"></div>
               <div className="text-center space-y-3 max-w-lg mx-auto">
-                <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-stone-900">
-                  Apa saja yang Anda butuhkan?
-                </h1>
-                <p className="text-stone-500 text-[15px] leading-relaxed">
+                <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-stone-900 font-display">
+                  Fitur apa saja yang Anda perlukan?
+                </h2>
+                <p className="text-stone-500">
                   Centang fitur yang relevan. Lewati saja kalau belum yakin — kita bisa diskusikan nanti.
                 </p>
                 {selectedProjectData && (
@@ -521,9 +559,9 @@ export default function HomePage() {
             >
               <form onSubmit={handleSubmit} className="space-y-8 bg-white p-6 sm:p-8 rounded-2xl border border-stone-200/80 shadow-sm max-w-2xl mx-auto">
                 <div className="text-center space-y-3">
-                  <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-stone-900">
+                  <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-stone-900 font-display">
                     Satu langkah lagi
-                  </h1>
+                  </h2>
                   <p className="text-stone-500 text-[15px] leading-relaxed max-w-md mx-auto">
                     Beri tahu kami target waktu dan cara menghubungi Anda. Estimasi biaya akan kami kirimkan secara privat.
                   </p>

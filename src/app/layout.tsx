@@ -1,11 +1,15 @@
 import type { Metadata } from "next";
+import { Inter, Outfit } from "next/font/google";
 import "./globals.css";
 import { FormProvider } from "@/context/FormContext";
 import Header from "@/components/ui/Header";
 
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit" });
+
 export const metadata: Metadata = {
-  title: "Client Onboarding & Project Discovery Form",
-  description: "Interactive single-page application for client requirement discovery",
+  title: "Tukang Web - Website yang Beneran Kerja",
+  description: "Jasa pembuatan website dan aplikasi web yang transparan dan profesional.",
 };
 
 /**
@@ -18,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="id">
-      <body className="min-h-screen bg-[#FAF9F5] text-stone-800 antialiased">
+      <body className={`${inter.variable} ${outfit.variable} font-sans min-h-screen bg-[#FAF9F5] text-stone-800 antialiased`}>
         <FormProvider>
           <Header />
           {children}

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useFormContext } from '@/context/FormContext';
-import { Code2, ArrowLeft } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export default function Header() {
@@ -19,7 +19,7 @@ export default function Header() {
         
         {/* Logo / Name */}
         <div 
-          className="flex items-center gap-2.5 cursor-pointer group"
+          className="flex items-center gap-3 cursor-pointer group"
           onClick={() => {
             if (isWizardStarted) {
               handleReturnHome();
@@ -28,10 +28,12 @@ export default function Header() {
             }
           }}
         >
-          <div className="p-1.5 bg-amber-600 text-white rounded-lg group-hover:bg-amber-700 transition-colors">
-            <Code2 className="w-4 h-4" strokeWidth={2} />
+          <div className="flex flex-col">
+            <span className="font-extrabold tracking-tight text-xl leading-none">
+              <span className="text-stone-800 font-display">Tukang</span><span className="text-amber-600 font-display">Web</span>
+            </span>
+            <span className="text-[10px] text-stone-500 font-medium tracking-wide mt-0.5 hidden sm:block">Website yang Beneran Kerja</span>
           </div>
-          <span className="font-bold text-stone-900 tracking-tight">Antigravity Dev</span>
         </div>
 
         {/* Back to Home Button (Only show in wizard) */}
