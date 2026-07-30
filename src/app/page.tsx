@@ -4,7 +4,7 @@ import { projectTypes, additionalFeatures } from '@/config/onboardingData';
 import ProjectCard from '@/components/ui/ProjectCard';
 import FeatureCard from '@/components/ui/FeatureCard';
 import { useFormContext } from '@/context/FormContext';
-import { CheckCircle2, RotateCcw, Sparkles, Rocket } from 'lucide-react';
+import { CheckCircle2, Sparkles, MessageCircle } from 'lucide-react';
 
 /**
  * HomePage Component
@@ -85,11 +85,10 @@ export default function HomePage() {
                 <CheckCircle2 className="w-14 h-14" />
               </div>
               <h1 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-                Permintaan Estimasi Berhasil Terkirim! 🎉
+                Permintaan Proyek Berhasil Dikirim!
               </h1>
               <p className="text-slate-300 text-base max-w-lg leading-relaxed">
-                Terima kasih, <strong className="text-white">{name}</strong>! Permintaan Anda untuk proyek{" "}
-                <strong className="text-blue-400">{selectedProjectData?.title || "Website"}</strong> telah kami terima. Tim agensi kami akan segera mempelajari kebutuhan Anda dan menghubungi Anda via <strong className="text-slate-100">{contact}</strong>.
+                Terima kasih <strong className="text-white">{name}</strong>. Tim kami sedang memproses rincian fitur untuk proyek <strong className="text-blue-400">{selectedProjectData?.title || "Website"}</strong> Anda. Proposal resmi dan estimasi harga akan segera kami kirimkan ke kontak Anda dalam 1x24 jam.
               </p>
             </div>
 
@@ -152,14 +151,16 @@ export default function HomePage() {
               </div>
             </div>
 
+            {/* WhatsApp Consultation Action Button */}
             <div className="pt-2 flex justify-center">
-              <button
-                type="button"
-                onClick={() => resetForm()}
-                className="px-6 py-3 rounded-xl font-semibold bg-blue-600 hover:bg-blue-700 text-white shadow-lg transition-all duration-200 flex items-center gap-2 cursor-pointer text-sm"
+              <a
+                href="https://wa.me/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-6 py-3.5 rounded-xl font-semibold bg-emerald-600 hover:bg-emerald-500 text-white shadow-lg shadow-emerald-600/20 transition-all duration-200 flex items-center gap-2.5 text-sm hover:scale-[1.02]"
               >
-                <RotateCcw className="w-4 h-4" /> Mulai Proyek Baru
-              </button>
+                <MessageCircle className="w-5 h-5" /> Konsultasi Langsung via WhatsApp
+              </a>
             </div>
           </div>
         ) : (
