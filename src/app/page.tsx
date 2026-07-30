@@ -27,6 +27,10 @@ export default function HomePage() {
     setIsSubmitted,
   } = useFormContext();
 
+  const [errors, setErrors] = React.useState<{ name?: string; contact?: string; consent?: string }>({});
+  const [honeypot, setHoneypot] = React.useState("");
+  const [consent, setConsent] = React.useState(false);
+
   const filteredFeatures = additionalFeatures.filter(
     (feature) =>
       feature.compatibleWith.includes("all") ||
@@ -35,10 +39,37 @@ export default function HomePage() {
 
   const selectedProjectData = projectTypes.find((p) => p.id === selectedProject);
 
+  const validateForm = () => {
+    const newErrors: { name?: string; contact?: string; consent?: string } = {};
+    
+    if (!name.trim() || name.trim().length < 2) {
+      newErrors.name = "Nama minimal 2 karakter";
+    }
+    
+    const contactStr = contact.trim();
+    const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contactStr);
+    const isWA = /^(\+62|62|0)8[1-9][0-9]{6,10}$/.test(contactStr);
+    
+    if (!contactStr) {
+      newErrors.contact = "Kontak wajib diisi";
+    } else if (!isEmail && !isWA) {
+      newErrors.contact = "Gunakan email atau nomor WA (08/+62) yang valid";
+    }
+
+    if (!consent) {
+      newErrors.consent = "Wajib disetujui untuk melanjutkan";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!name.trim() || !contact.trim()) return;
-    setIsSubmitted(true);
+    if (honeypot) return; // Spam protection
+    if (validateForm()) {
+      setIsSubmitted(true);
+    }
   };
 
   const getTimelineLabel = (id: string) => {
@@ -196,9 +227,17 @@ export default function HomePage() {
                     )}
                   </div>
 
-                  <div className="sm:col-span-2 pt-4 border-t border-stone-100 flex flex-col sm:flex-row justify-between text-xs text-stone-500 gap-1.5">
-                    <span>Nama: <span className="text-stone-700 font-medium">{name}</span></span>
-                    <span>Kontak: <span className="text-stone-700 font-medium">{contact}</span></span>
+                  <div className="sm:col-span-2 pt-4 border-t border-stone-100 flex flex-col gap-2">
+                    <div className="flex flex-col sm:flex-row sm:justify-between text-xs text-stone-500 bg-stone-50 p-3 rounded-lg border border-stone-100">
+                      <div className="flex items-center gap-1.5 mb-1 sm:mb-0">
+                        <span className="uppercase tracking-wider font-medium text-[10px]">Nama:</span> 
+                        <span className="text-stone-800 font-medium text-sm">{name}</span>
+                      </div>
+                      <div className="flex items-center gap-1.5">
+                        <span className="uppercase tracking-wider font-medium text-[10px]">Kontak:</span> 
+                        <span className="text-stone-800 font-medium text-sm">{contact}</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -220,7 +259,7 @@ export default function HomePage() {
             <motion.div
               key="step-1"
               {...pageTransition}
-              className="space-y-10"
+              className="space-y-10 bg-white p-6 sm:p-8 rounded-2xl border border-stone-200/80 shadow-sm"
             >
               <div className="text-center space-y-3 max-w-lg mx-auto">
                 <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-stone-900">
@@ -252,7 +291,7 @@ export default function HomePage() {
             <motion.div
               key="step-2"
               {...pageTransition}
-              className="space-y-8"
+              className="space-y-8 bg-white p-6 sm:p-8 rounded-2xl border border-stone-200/80 shadow-sm"
             >
               <div className="text-center space-y-3 max-w-lg mx-auto">
                 <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-stone-900">
@@ -262,9 +301,12 @@ export default function HomePage() {
                   Centang fitur yang relevan. Lewati saja kalau belum yakin — kita bisa diskusikan nanti.
                 </p>
                 {selectedProjectData && (
-                  <div className="pt-1">
+                  <div className="pt-1 flex flex-wrap justify-center gap-2">
                     <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50/80 text-amber-800 text-xs font-medium border border-amber-200/70">
                       {selectedProjectData.title}
+                    </span>
+                    <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border transition-colors ${selectedFeatures.length > 0 ? "bg-emerald-50 text-emerald-700 border-emerald-200" : "bg-stone-50 text-stone-500 border-stone-200"}`}>
+                      {selectedFeatures.length} fitur dipilih
                     </span>
                   </div>
                 )}
@@ -334,26 +376,29 @@ export default function HomePage() {
                 {/* Timeline */}
                 <div className="space-y-3">
                   <label className="block text-sm font-medium text-stone-700">
-                    Kapan idealnya proyek ini selesai?
+                    Kapan idealnya proyek ini selesai? *
                   </label>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
                     {[
-                      { id: "relaxed", label: "1–2 Bulan", sub: "Fleksibel" },
-                      { id: "normal", label: "2–4 Minggu", sub: "Standar" },
                       { id: "asap", label: "ASAP", sub: "Mendesak" },
+                      { id: "normal", label: "2–4 Minggu", sub: "Standar" },
+                      { id: "relaxed", label: "1–2 Bulan", sub: "Fleksibel" },
                     ].map((item) => (
                       <motion.button
                         key={item.id}
                         type="button"
                         whileTap={{ scale: 0.98 }}
                         onClick={() => setTimeline(item.id)}
-                        className={`p-3.5 rounded-xl border text-center cursor-pointer transition-all duration-300 ease-out ${
+                        className={`relative p-3.5 rounded-xl border text-center cursor-pointer transition-all duration-300 ease-out overflow-hidden ${
                           timeline === item.id
                             ? "border-amber-500/80 bg-amber-50/50 ring-1 ring-amber-200/50"
                             : "border-stone-200/80 bg-white hover:border-stone-300 hover:bg-stone-50/50"
                         }`}
                       >
-                        <span className={`text-sm font-medium block ${timeline === item.id ? "text-stone-900" : "text-stone-700"}`}>
+                        <div className={`absolute top-2.5 right-2.5 w-3.5 h-3.5 rounded-full border flex items-center justify-center transition-colors ${timeline === item.id ? "border-amber-600 bg-amber-600" : "border-stone-300"}`}>
+                           {timeline === item.id && <div className="w-1.5 h-1.5 rounded-full bg-white" />}
+                        </div>
+                        <span className={`text-sm font-medium block mt-1 ${timeline === item.id ? "text-stone-900" : "text-stone-700"}`}>
                           {item.label}
                         </span>
                         <span className={`text-[11px] mt-0.5 block ${timeline === item.id ? "text-amber-700" : "text-stone-400"}`}>
@@ -369,27 +414,76 @@ export default function HomePage() {
                   <label className="block text-sm font-medium text-stone-700">
                     Bagaimana cara kami menghubungi Anda?
                   </label>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  
+                  {/* Honeypot field (hidden) */}
+                  <div className="absolute opacity-0 -z-10 overflow-hidden w-0 h-0">
+                    <label htmlFor="website_url">Website URL</label>
+                    <input type="text" id="website_url" name="website_url" value={honeypot} onChange={(e) => setHoneypot(e.target.value)} tabIndex={-1} autoComplete="off" />
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs text-stone-400 mb-1.5">Nama</label>
+                      <label className="block text-xs font-medium text-stone-600 mb-1.5">Nama <span className="text-red-500">*</span></label>
                       <input
                         type="text"
                         value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        placeholder="Budi Santoso"
-                        className="w-full px-4 py-3 rounded-xl bg-stone-50/80 border border-stone-200 text-stone-800 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/40 focus:border-amber-400 focus:bg-white placeholder-stone-300 transition-all duration-200"
+                        onChange={(e) => {
+                          setName(e.target.value);
+                          if (errors.name) setErrors({...errors, name: undefined});
+                        }}
+                        placeholder="Cth: Budi Santoso"
+                        className={`w-full px-4 py-3 rounded-xl bg-stone-50/80 border text-stone-800 text-sm focus:outline-none focus:ring-2 focus:bg-white placeholder-stone-400 transition-all duration-200 ${
+                          errors.name ? "border-red-300 focus:border-red-400 focus:ring-red-500/20" : "border-stone-200 focus:border-amber-400 focus:ring-amber-500/40"
+                        }`}
                       />
+                      {errors.name && <p className="text-[11px] text-red-500 mt-1.5 font-medium">{errors.name}</p>}
                     </div>
                     <div>
-                      <label className="block text-xs text-stone-400 mb-1.5">WhatsApp atau Email</label>
+                      <label className="block text-xs font-medium text-stone-600 mb-1.5">WhatsApp / Email <span className="text-red-500">*</span></label>
                       <input
                         type="text"
                         value={contact}
-                        onChange={(e) => setContact(e.target.value)}
-                        placeholder="081234567890"
-                        className="w-full px-4 py-3 rounded-xl bg-stone-50/80 border border-stone-200 text-stone-800 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/40 focus:border-amber-400 focus:bg-white placeholder-stone-300 transition-all duration-200"
+                        onChange={(e) => {
+                          setContact(e.target.value);
+                          if (errors.contact) setErrors({...errors, contact: undefined});
+                        }}
+                        placeholder="Cth: 0812xxx / budi@email.com"
+                        className={`w-full px-4 py-3 rounded-xl bg-stone-50/80 border text-stone-800 text-sm focus:outline-none focus:ring-2 focus:bg-white placeholder-stone-400 transition-all duration-200 ${
+                          errors.contact ? "border-red-300 focus:border-red-400 focus:ring-red-500/20" : "border-stone-200 focus:border-amber-400 focus:ring-amber-500/40"
+                        }`}
                       />
+                      {errors.contact && <p className="text-[11px] text-red-500 mt-1.5 font-medium">{errors.contact}</p>}
                     </div>
+                  </div>
+                  
+                  {/* Consent Checkbox */}
+                  <div className="pt-2">
+                    <label className="flex items-start gap-2.5 cursor-pointer group">
+                      <div className="relative flex items-center justify-center mt-0.5">
+                        <input 
+                          type="checkbox" 
+                          className="peer sr-only" 
+                          checked={consent}
+                          onChange={(e) => {
+                            setConsent(e.target.checked);
+                            if (errors.consent) setErrors({...errors, consent: undefined});
+                          }}
+                        />
+                        <div className={`w-4 h-4 rounded border transition-colors ${consent ? "bg-amber-600 border-amber-600" : "bg-white border-stone-300 group-hover:border-amber-400"}`}>
+                          {consent && (
+                            <svg className="w-3 h-3 text-white mx-auto mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                            </svg>
+                          )}
+                        </div>
+                      </div>
+                      <div className="flex flex-col">
+                        <span className="text-xs text-stone-600 leading-relaxed">
+                          Saya setuju data ini digunakan untuk keperluan penawaran proyek sesuai dengan <a href="#" className="text-amber-700 hover:underline font-medium" onClick={(e) => { e.preventDefault(); alert("Kebijakan privasi akan ditampilkan di sini."); }}>Kebijakan Privasi</a>.
+                        </span>
+                        {errors.consent && <span className="text-[11px] text-red-500 mt-0.5 font-medium">{errors.consent}</span>}
+                      </div>
+                    </label>
                   </div>
                 </div>
 
@@ -405,14 +499,9 @@ export default function HomePage() {
                   </motion.button>
                   <motion.button
                     type="submit"
-                    whileHover={name.trim() && contact.trim() ? { y: -1 } : {}}
-                    whileTap={name.trim() && contact.trim() ? { scale: 0.98 } : {}}
-                    disabled={!name.trim() || !contact.trim()}
-                    className={`w-full sm:w-auto px-6 py-3 rounded-xl text-sm font-medium transition-all duration-200 text-center ${
-                      name.trim() && contact.trim()
-                        ? "bg-amber-600 hover:bg-amber-700 text-white shadow-sm cursor-pointer"
-                        : "bg-stone-100 text-stone-300 border border-stone-200 cursor-not-allowed"
-                    }`}
+                    whileHover={{ y: -1 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="w-full sm:w-auto px-6 py-3 rounded-xl text-sm font-medium transition-all duration-200 text-center bg-amber-600 hover:bg-amber-700 text-white shadow-sm cursor-pointer"
                   >
                     Kirim permintaan
                   </motion.button>
