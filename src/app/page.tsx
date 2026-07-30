@@ -62,23 +62,14 @@ export default function HomePage() {
                   description={project.description}
                   iconName={project.icon}
                   isSelected={selectedProject === project.id}
-                  onClick={() => setSelectedProject(project.id)}
+                  onClick={() => {
+                    setSelectedProject(project.id);
+                    setTimeout(() => {
+                      setStep(2);
+                    }, 300);
+                  }}
                 />
               ))}
-            </div>
-
-            <div className="flex justify-end pt-4">
-              <button
-                disabled={!selectedProject}
-                onClick={() => setStep(2)}
-                className={`px-6 py-3 rounded-lg font-semibold transition-all duration-200 ${
-                  selectedProject
-                    ? "bg-blue-600 hover:bg-blue-700 text-white shadow-lg cursor-pointer"
-                    : "bg-slate-800 text-slate-500 cursor-not-allowed border border-slate-700"
-                }`}
-              >
-                Lanjutkan &rarr;
-              </button>
             </div>
           </div>
         )}
