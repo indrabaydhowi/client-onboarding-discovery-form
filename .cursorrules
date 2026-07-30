@@ -1,0 +1,5 @@
+# AI Context Rules
+Tech stack: Next.js (App Router), Tailwind CSS, Lucide Icons.
+- Pisahkan data murni dengan komponen UI.
+- Gunakan penamaan: kebab-case untuk folder/file, PascalCase untuk komponen React.
+- Wajib menuliskan komentar singkat pada fungsi-fungsi utama.
