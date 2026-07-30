@@ -16,6 +16,8 @@ interface FormContextType {
   setName: (name: string) => void;
   contact: string;
   setContact: (contact: string) => void;
+  isSubmitted: boolean;
+  setIsSubmitted: (isSubmitted: boolean) => void;
   resetForm: () => void;
 }
 
@@ -28,6 +30,7 @@ export function FormProvider({ children }: { children: ReactNode }) {
   const [timeline, setTimeline] = useState<string>("");
   const [name, setName] = useState<string>("");
   const [contact, setContact] = useState<string>("");
+  const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
 
   const toggleFeature = (featureId: string) => {
     setSelectedFeatures((prev) =>
@@ -43,6 +46,7 @@ export function FormProvider({ children }: { children: ReactNode }) {
     setTimeline("");
     setName("");
     setContact("");
+    setIsSubmitted(false);
     setStep(1);
   };
 
@@ -62,6 +66,8 @@ export function FormProvider({ children }: { children: ReactNode }) {
         setName,
         contact,
         setContact,
+        isSubmitted,
+        setIsSubmitted,
         resetForm,
       }}
     >
