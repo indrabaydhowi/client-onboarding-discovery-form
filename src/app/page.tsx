@@ -1,5 +1,7 @@
 "use client";
 
+import React from 'react';
+
 import { projectTypes, additionalFeatures } from '@/config/onboardingData';
 import ProjectCard from '@/components/ui/ProjectCard';
 import FeatureCard from '@/components/ui/FeatureCard';
@@ -7,10 +9,6 @@ import { useFormContext } from '@/context/FormContext';
 import { CheckCircle2, Sparkles, MessageCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-/**
- * HomePage Component
- * Form multi-step onboarding & project discovery dengan estetika Claude Desktop (Warm Cream & Amber).
- */
 export default function HomePage() {
   const {
     selectedProject,
@@ -46,9 +44,9 @@ export default function HomePage() {
   const getTimelineLabel = (id: string) => {
     switch (id) {
       case "relaxed":
-        return "Santai (1-2 Bulan)";
+        return "Santai (1–2 Bulan)";
       case "normal":
-        return "Normal (2-4 Minggu)";
+        return "Normal (2–4 Minggu)";
       case "asap":
         return "Butuh Cepat / ASAP";
       default:
@@ -73,140 +71,120 @@ export default function HomePage() {
                     `Mohon informasikan estimasi rincian biaya dan kelanjutannya. Terima kasih!`;
 
     const phoneNumber = "6281234567890";
-
     const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
     window.open(url, '_blank');
   };
 
-  return (
-    <main className="min-h-screen bg-[#FAF9F5] text-stone-800 py-12 px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center relative overflow-hidden">
-      
-      {/* Background Soft Warm Glow */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-amber-500/10 blur-[140px] rounded-full pointer-events-none" />
+  const pageTransition = {
+    initial: { opacity: 0, y: 12 },
+    animate: { opacity: 1, y: 0 },
+    exit: { opacity: 0, y: -8 },
+    transition: { duration: 0.3, ease: [0.25, 0.1, 0.25, 1] as const },
+  };
 
-      <div className="max-w-5xl w-full space-y-8 relative z-10">
+  return (
+    <main className="min-h-screen bg-[#FAF9F5] text-stone-800 py-16 px-5 sm:px-8 lg:px-10 flex flex-col items-center justify-center relative overflow-hidden">
+      
+      <div className="max-w-4xl w-full space-y-10 relative z-10">
         
-        {/* Dynamic Progress Indicator & Step Badges */}
+        {/* Progress — clean and minimal */}
         {!isSubmitted && (
-          <div className="space-y-4 max-w-xl mx-auto">
-            {/* Animated Progress Bar */}
-            <div className="w-full bg-stone-200/80 h-2 rounded-full overflow-hidden border border-stone-300/60 shadow-inner">
+          <div className="space-y-5 max-w-md mx-auto">
+            <div className="w-full bg-stone-200/60 h-1.5 rounded-full overflow-hidden">
               <motion.div
-                className="h-full bg-gradient-to-r from-amber-500 via-amber-600 to-orange-600 rounded-full"
+                className="h-full bg-amber-500 rounded-full"
                 initial={{ width: "33.33%" }}
                 animate={{
                   width: step === 1 ? "33.33%" : step === 2 ? "66.66%" : "100%",
                 }}
-                transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
               />
             </div>
 
-            {/* Step Badges */}
-            <div className="flex items-center justify-center space-x-2 sm:space-x-3 text-xs sm:text-sm font-medium text-stone-500">
-              <motion.span
-                animate={{ scale: step === 1 ? 1.04 : 1 }}
-                className={`px-3 py-1 rounded-full transition-colors duration-300 ${
-                  step === 1
-                    ? "bg-amber-600 text-white font-semibold shadow-sm"
-                    : step > 1
-                    ? "bg-amber-100 text-amber-900 border border-amber-300/80"
-                    : "bg-stone-200/80 text-stone-600"
-                }`}
-              >
-                Langkah 1: Jenis Proyek
-              </motion.span>
-              <span className="text-stone-400">&rarr;</span>
-              <motion.span
-                animate={{ scale: step === 2 ? 1.04 : 1 }}
-                className={`px-3 py-1 rounded-full transition-colors duration-300 ${
-                  step === 2
-                    ? "bg-amber-600 text-white font-semibold shadow-sm"
-                    : step > 2
-                    ? "bg-amber-100 text-amber-900 border border-amber-300/80"
-                    : "bg-stone-200/80 text-stone-600"
-                }`}
-              >
-                Langkah 2: Fitur Tambahan
-              </motion.span>
-              <span className="text-stone-400">&rarr;</span>
-              <motion.span
-                animate={{ scale: step === 3 ? 1.04 : 1 }}
-                className={`px-3 py-1 rounded-full transition-colors duration-300 ${
-                  step === 3
-                    ? "bg-amber-600 text-white font-semibold shadow-sm"
-                    : "bg-stone-200/80 text-stone-600"
-                }`}
-              >
-                Langkah 3: Detail & Kontak
-              </motion.span>
+            <div className="flex items-center justify-center gap-2 sm:gap-3 text-xs font-medium">
+              {[
+                { n: 1, label: "Jenis Proyek" },
+                { n: 2, label: "Fitur" },
+                { n: 3, label: "Detail" },
+              ].map((s, i) => (
+                <React.Fragment key={s.n}>
+                  {i > 0 && <span className="text-stone-300 text-[10px]">—</span>}
+                  <span
+                    className={`px-2.5 py-1 rounded-full transition-all duration-300 ${
+                      step === s.n
+                        ? "bg-amber-600 text-white font-medium"
+                        : step > s.n
+                        ? "bg-amber-100/80 text-amber-800"
+                        : "bg-stone-100 text-stone-400"
+                    }`}
+                  >
+                    {s.n}. {s.label}
+                  </span>
+                </React.Fragment>
+              ))}
             </div>
           </div>
         )}
 
-        {/* Animated Container for Smooth Step Transitions */}
         <AnimatePresence mode="wait">
-          {/* SUCCESS CONFIRMATION SCREEN */}
           {isSubmitted ? (
             <motion.div
-              key="success-screen"
-              initial={{ opacity: 0, y: 15, scale: 0.98 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -15, scale: 0.98 }}
-              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-              className="space-y-8 max-w-2xl mx-auto text-center py-4"
+              key="success"
+              {...pageTransition}
+              className="max-w-xl mx-auto text-center py-6 space-y-10"
             >
-              <div className="flex flex-col items-center justify-center space-y-4">
+              <div className="space-y-5">
                 <motion.div
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{ type: "spring", stiffness: 300, damping: 20, delay: 0.1 }}
-                  className="p-4 bg-emerald-100 text-emerald-700 rounded-full border border-emerald-200 shadow-sm"
+                  initial={{ scale: 0.5, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ type: "spring", stiffness: 250, damping: 22, delay: 0.08 }}
+                  className="inline-flex p-4 bg-emerald-50 text-emerald-600 rounded-full"
                 >
-                  <CheckCircle2 className="w-14 h-14" />
+                  <CheckCircle2 className="w-12 h-12" strokeWidth={1.5} />
                 </motion.div>
-                <h1 className="text-3xl sm:text-4xl font-extrabold text-stone-900 tracking-tight">
-                  Permintaan Proyek Berhasil Dikirim!
+                <h1 className="text-2xl sm:text-3xl font-bold text-stone-900 tracking-tight leading-tight">
+                  Permintaan proyek Anda sudah kami terima
                 </h1>
-                <p className="text-stone-600 text-base max-w-lg leading-relaxed">
-                  Terima kasih <strong className="text-stone-900">{name}</strong>. Tim kami sedang memproses rincian fitur untuk proyek <strong className="text-amber-700">{selectedProjectData?.title || "Website"}</strong> Anda. Proposal resmi dan estimasi harga akan segera kami kirimkan ke kontak Anda dalam 1x24 jam.
+                <p className="text-stone-500 text-[15px] max-w-md mx-auto leading-relaxed">
+                  Terima kasih, <span className="font-medium text-stone-700">{name}</span>. Tim kami akan mempelajari kebutuhan proyek <span className="font-medium text-amber-700">{selectedProjectData?.title || "Website"}</span> Anda dan mengirimkan proposal estimasi ke kontak Anda dalam waktu 1×24 jam.
                 </p>
               </div>
 
-              {/* Response Summary Card */}
-              <div className="bg-white border border-stone-200/90 rounded-2xl p-6 text-left space-y-6 shadow-xl shadow-stone-200/50">
-                <div className="flex items-center justify-between border-b border-stone-200/80 pb-4">
-                  <h2 className="text-lg font-bold text-stone-900 flex items-center gap-2">
-                    <Sparkles className="w-5 h-5 text-amber-600" /> Ringkasan Pengajuan Proyek
+              {/* Summary card */}
+              <div className="bg-white border border-stone-200/80 rounded-2xl p-6 text-left shadow-sm">
+                <div className="flex items-center justify-between border-b border-stone-100 pb-4 mb-5">
+                  <h2 className="text-sm font-semibold text-stone-800 flex items-center gap-2">
+                    <Sparkles className="w-4 h-4 text-amber-500" /> Ringkasan
                   </h2>
-                  <span className="text-xs px-2.5 py-1 bg-emerald-100 text-emerald-800 font-semibold rounded-full border border-emerald-200">
-                    Status: Terverifikasi
+                  <span className="text-[11px] px-2 py-0.5 bg-emerald-50 text-emerald-700 font-medium rounded-full">
+                    Terkirim
                   </span>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-sm">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 text-sm">
                   <div>
-                    <span className="text-xs text-stone-500 font-medium block mb-1">Jenis Proyek</span>
-                    <p className="text-stone-900 font-semibold text-base">{selectedProjectData?.title || "-"}</p>
-                    <p className="text-stone-500 text-xs mt-0.5">{selectedProjectData?.description}</p>
+                    <span className="text-[11px] uppercase tracking-wider text-stone-400 font-medium block mb-1">Proyek</span>
+                    <p className="text-stone-800 font-medium">{selectedProjectData?.title || "-"}</p>
+                    <p className="text-stone-400 text-xs mt-0.5">{selectedProjectData?.description}</p>
                   </div>
 
                   <div>
-                    <span className="text-xs text-stone-500 font-medium block mb-1">Target Waktu</span>
-                    <p className="text-stone-900 font-semibold text-base">{getTimelineLabel(timeline)}</p>
+                    <span className="text-[11px] uppercase tracking-wider text-stone-400 font-medium block mb-1">Timeline</span>
+                    <p className="text-stone-800 font-medium">{getTimelineLabel(timeline)}</p>
                   </div>
 
                   <div className="sm:col-span-2">
-                    <span className="text-xs text-stone-500 font-medium block mb-2">
-                      Fitur Tambahan Terpilih ({selectedFeatures.length})
+                    <span className="text-[11px] uppercase tracking-wider text-stone-400 font-medium block mb-2">
+                      Fitur ({selectedFeatures.length})
                     </span>
                     {selectedFeatures.length > 0 ? (
-                      <div className="flex flex-wrap gap-2">
+                      <div className="flex flex-wrap gap-1.5">
                         {selectedFeatures.map((featureId) => {
                           const feat = additionalFeatures.find((f) => f.id === featureId);
                           return (
                             <span
                               key={featureId}
-                              className="px-3 py-1.5 bg-amber-50 border border-amber-200/80 text-amber-900 text-xs font-medium rounded-lg"
+                              className="px-2.5 py-1 bg-stone-50 border border-stone-200/80 text-stone-700 text-xs rounded-md font-normal"
                             >
                               {feat?.title || featureId}
                             </span>
@@ -214,56 +192,46 @@ export default function HomePage() {
                         })}
                       </div>
                     ) : (
-                      <p className="text-stone-400 text-xs italic">Tidak ada fitur tambahan khusus yang dipilih.</p>
+                      <p className="text-stone-400 text-xs">Tidak ada fitur tambahan.</p>
                     )}
                   </div>
 
-                  <div className="sm:col-span-2 pt-4 border-t border-stone-200/80 flex flex-col sm:flex-row justify-between text-xs text-stone-600 gap-2">
-                    <div>
-                      <span>Nama Klien: </span>
-                      <strong className="text-stone-900">{name}</strong>
-                    </div>
-                    <div>
-                      <span>Kontak Utama: </span>
-                      <strong className="text-stone-900">{contact}</strong>
-                    </div>
+                  <div className="sm:col-span-2 pt-4 border-t border-stone-100 flex flex-col sm:flex-row justify-between text-xs text-stone-500 gap-1.5">
+                    <span>Nama: <span className="text-stone-700 font-medium">{name}</span></span>
+                    <span>Kontak: <span className="text-stone-700 font-medium">{contact}</span></span>
                   </div>
                 </div>
               </div>
 
-              {/* WhatsApp Consultation Action Button */}
-              <div className="pt-2 flex justify-center">
+              <div className="pt-1">
                 <motion.button
                   type="button"
-                  whileHover={{ scale: 1.03 }}
-                  whileTap={{ scale: 0.97 }}
+                  whileHover={{ y: -1 }}
+                  whileTap={{ scale: 0.98 }}
                   onClick={handleWhatsAppClick}
-                  className="px-6 py-3.5 rounded-xl font-semibold bg-emerald-600 hover:bg-emerald-700 text-white shadow-md shadow-emerald-600/20 transition-colors duration-200 flex items-center gap-2.5 text-sm cursor-pointer"
+                  className="inline-flex items-center gap-2 px-5 py-3 rounded-xl font-medium bg-emerald-600 hover:bg-emerald-700 text-white text-sm shadow-sm transition-colors duration-200 cursor-pointer"
                 >
-                  <MessageCircle className="w-5 h-5" /> Konsultasi Langsung via WhatsApp
+                  <MessageCircle className="w-4 h-4" strokeWidth={2} /> Hubungi via WhatsApp
                 </motion.button>
               </div>
             </motion.div>
+
           ) : step === 1 ? (
-            /* STEP 1: Pilih Jenis Proyek */
             <motion.div
               key="step-1"
-              initial={{ opacity: 0, y: 15, scale: 0.98 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -15, scale: 0.98 }}
-              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-              className="space-y-8"
+              {...pageTransition}
+              className="space-y-10"
             >
-              <div className="text-center space-y-3">
-                <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-stone-900">
-                  Pilih Jenis Proyek Anda
+              <div className="text-center space-y-3 max-w-lg mx-auto">
+                <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-stone-900">
+                  Mulai dari sini
                 </h1>
-                <p className="text-stone-600 text-base max-w-2xl mx-auto">
-                  Temukan solusi web development yang paling sesuai dengan kebutuhan bisnis atau organisasi Anda.
+                <p className="text-stone-500 text-[15px] leading-relaxed">
+                  Pilih jenis proyek yang paling menggambarkan kebutuhan Anda. Nanti kita sesuaikan bersama.
                 </p>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 {projectTypes.map((project) => (
                   <ProjectCard
                     key={project.id}
@@ -273,41 +241,36 @@ export default function HomePage() {
                     isSelected={selectedProject === project.id}
                     onClick={() => {
                       setSelectedProject(project.id);
-                      setTimeout(() => {
-                        setStep(2);
-                      }, 300);
+                      setTimeout(() => setStep(2), 300);
                     }}
                   />
                 ))}
               </div>
             </motion.div>
+
           ) : step === 2 ? (
-            /* STEP 2: Pilih Fitur Tambahan */
             <motion.div
               key="step-2"
-              initial={{ opacity: 0, y: 15, scale: 0.98 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -15, scale: 0.98 }}
-              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+              {...pageTransition}
               className="space-y-8"
             >
-              <div className="text-center space-y-3">
-                <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-stone-900">
-                  Pilih Fitur Tambahan
+              <div className="text-center space-y-3 max-w-lg mx-auto">
+                <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-stone-900">
+                  Apa saja yang Anda butuhkan?
                 </h1>
-                <p className="text-stone-600 text-base max-w-2xl mx-auto">
-                  Pilih fitur pendukung yang Anda butuhkan untuk mengoptimalkan proyek web Anda.
+                <p className="text-stone-500 text-[15px] leading-relaxed">
+                  Centang fitur yang relevan. Lewati saja kalau belum yakin — kita bisa diskusikan nanti.
                 </p>
                 {selectedProjectData && (
-                  <div className="pt-2 flex justify-center">
-                    <span className="px-4 py-2 rounded-full bg-amber-100/70 text-amber-900 text-sm font-medium border border-amber-300/80 shadow-sm">
-                      Proyek Terpilih: <strong className="text-amber-950 ml-1">{selectedProjectData.title}</strong>
+                  <div className="pt-1">
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50/80 text-amber-800 text-xs font-medium border border-amber-200/70">
+                      {selectedProjectData.title}
                     </span>
                   </div>
                 )}
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 {filteredFeatures.map((feature) => (
                   <FeatureCard
                     key={feature.id}
@@ -320,137 +283,138 @@ export default function HomePage() {
                 ))}
               </div>
 
-              <div className="flex justify-between items-center pt-4">
+              <div className="flex justify-between items-center pt-2">
                 <motion.button
                   type="button"
-                  whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={() => setStep(1)}
-                  className="px-6 py-3 rounded-lg font-semibold bg-stone-100 hover:bg-stone-200 text-stone-700 border border-stone-300/80 transition-colors duration-200 cursor-pointer shadow-sm"
+                  className="px-5 py-2.5 rounded-lg text-sm font-medium text-stone-600 hover:text-stone-800 hover:bg-stone-100 transition-colors duration-200 cursor-pointer"
                 >
-                  &larr; Kembali
+                  ← Kembali
                 </motion.button>
                 <motion.button
                   type="button"
-                  whileHover={{ scale: 1.02 }}
+                  whileHover={{ y: -1 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={() => setStep(3)}
-                  className="px-6 py-3 rounded-lg font-semibold bg-amber-600 hover:bg-amber-700 text-white shadow-md shadow-amber-600/20 transition-colors duration-200 cursor-pointer"
+                  className="px-5 py-2.5 rounded-lg text-sm font-medium bg-amber-600 hover:bg-amber-700 text-white shadow-sm transition-colors duration-200 cursor-pointer"
                 >
-                  Lanjutkan &rarr;
+                  Lanjut →
                 </motion.button>
               </div>
             </motion.div>
+
           ) : (
-            /* STEP 3: Closing & Lead Capture */
             <motion.div
               key="step-3"
-              initial={{ opacity: 0, y: 15, scale: 0.98 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -15, scale: 0.98 }}
-              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+              {...pageTransition}
             >
-              <form onSubmit={handleSubmit} className="space-y-8 bg-white p-6 sm:p-8 rounded-2xl border border-stone-200/90 shadow-xl shadow-stone-200/50">
+              <form onSubmit={handleSubmit} className="space-y-8 bg-white p-6 sm:p-8 rounded-2xl border border-stone-200/80 shadow-sm max-w-2xl mx-auto">
                 <div className="text-center space-y-3">
-                  <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-stone-900">
-                    Estimasi Waktu & Data Kontak
+                  <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-stone-900">
+                    Satu langkah lagi
                   </h1>
-                  <p className="text-stone-600 text-base max-w-2xl mx-auto">
-                    Lengkapi detail singkat ini agar kami dapat menghitung dan mengirimkan penawaran estimasi secara privat.
+                  <p className="text-stone-500 text-[15px] leading-relaxed max-w-md mx-auto">
+                    Beri tahu kami target waktu dan cara menghubungi Anda. Estimasi biaya akan kami kirimkan secara privat.
                   </p>
                   {selectedProjectData && (
-                    <div className="pt-2 flex justify-center flex-wrap gap-2">
-                      <span className="px-3 py-1 rounded-full bg-amber-100/70 text-amber-900 text-xs font-medium border border-amber-300/80">
-                        Proyek: <strong className="text-amber-950 ml-1">{selectedProjectData.title}</strong>
+                    <div className="pt-1 flex justify-center flex-wrap gap-2">
+                      <span className="inline-flex px-2.5 py-1 rounded-full bg-amber-50/80 text-amber-800 text-xs font-medium border border-amber-200/70">
+                        {selectedProjectData.title}
                       </span>
-                      <span className="px-3 py-1 rounded-full bg-stone-100 text-stone-700 text-xs font-medium border border-stone-300/80">
-                        {selectedFeatures.length} Fitur Dipilih
-                      </span>
+                      {selectedFeatures.length > 0 && (
+                        <span className="inline-flex px-2.5 py-1 rounded-full bg-stone-50 text-stone-600 text-xs font-medium border border-stone-200/80">
+                          {selectedFeatures.length} fitur
+                        </span>
+                      )}
                     </div>
                   )}
                 </div>
 
-                {/* Estimasi Waktu (Timeline) */}
+                {/* Timeline */}
                 <div className="space-y-3">
-                  <label className="block text-sm font-semibold text-stone-800">
-                    Estimasi Waktu Pengerjaan
+                  <label className="block text-sm font-medium text-stone-700">
+                    Kapan idealnya proyek ini selesai?
                   </label>
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
                     {[
-                      { id: "relaxed", label: "Santai (1-2 Bulan)" },
-                      { id: "normal", label: "Normal (2-4 Minggu)" },
-                      { id: "asap", label: "Butuh Cepat / ASAP" },
+                      { id: "relaxed", label: "1–2 Bulan", sub: "Fleksibel" },
+                      { id: "normal", label: "2–4 Minggu", sub: "Standar" },
+                      { id: "asap", label: "ASAP", sub: "Mendesak" },
                     ].map((item) => (
                       <motion.button
                         key={item.id}
                         type="button"
-                        whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
                         onClick={() => setTimeline(item.id)}
-                        className={`p-4 rounded-xl border text-sm font-medium transition-colors text-center cursor-pointer ${
+                        className={`p-3.5 rounded-xl border text-center cursor-pointer transition-all duration-300 ease-out ${
                           timeline === item.id
-                            ? "border-amber-600 bg-amber-50/70 text-amber-950 ring-2 ring-amber-300"
-                            : "border-stone-200 bg-white text-stone-700 hover:border-amber-300 hover:bg-stone-50"
+                            ? "border-amber-500/80 bg-amber-50/50 ring-1 ring-amber-200/50"
+                            : "border-stone-200/80 bg-white hover:border-stone-300 hover:bg-stone-50/50"
                         }`}
                       >
-                        {item.label}
+                        <span className={`text-sm font-medium block ${timeline === item.id ? "text-stone-900" : "text-stone-700"}`}>
+                          {item.label}
+                        </span>
+                        <span className={`text-[11px] mt-0.5 block ${timeline === item.id ? "text-amber-700" : "text-stone-400"}`}>
+                          {item.sub}
+                        </span>
                       </motion.button>
                     ))}
                   </div>
                 </div>
 
-                {/* Informasi Kontak */}
-                <div className="space-y-4 pt-2 border-t border-stone-200/80">
-                  <h3 className="text-sm font-semibold text-stone-800">
-                    Informasi Kontak
-                  </h3>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {/* Contact */}
+                <div className="space-y-4 pt-5 border-t border-stone-100">
+                  <label className="block text-sm font-medium text-stone-700">
+                    Bagaimana cara kami menghubungi Anda?
+                  </label>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
-                      <label className="block text-xs text-stone-500 mb-1 font-medium">Nama Anda *</label>
+                      <label className="block text-xs text-stone-400 mb-1.5">Nama</label>
                       <input
                         type="text"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
-                        placeholder="Contoh: Budi Santoso"
-                        className="w-full p-3.5 rounded-xl bg-stone-50 border border-stone-200 text-stone-900 text-sm focus:outline-none focus:ring-2 focus:ring-amber-600 focus:border-transparent focus:bg-white placeholder-stone-400 transition-all"
+                        placeholder="Budi Santoso"
+                        className="w-full px-4 py-3 rounded-xl bg-stone-50/80 border border-stone-200 text-stone-800 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/40 focus:border-amber-400 focus:bg-white placeholder-stone-300 transition-all duration-200"
                       />
                     </div>
                     <div>
-                      <label className="block text-xs text-stone-500 mb-1 font-medium">Nomor WhatsApp / Email *</label>
+                      <label className="block text-xs text-stone-400 mb-1.5">WhatsApp atau Email</label>
                       <input
                         type="text"
                         value={contact}
                         onChange={(e) => setContact(e.target.value)}
-                        placeholder="Contoh: 081234567890 / budi@email.com"
-                        className="w-full p-3.5 rounded-xl bg-stone-50 border border-stone-200 text-stone-900 text-sm focus:outline-none focus:ring-2 focus:ring-amber-600 focus:border-transparent focus:bg-white placeholder-stone-400 transition-all"
+                        placeholder="081234567890"
+                        className="w-full px-4 py-3 rounded-xl bg-stone-50/80 border border-stone-200 text-stone-800 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/40 focus:border-amber-400 focus:bg-white placeholder-stone-300 transition-all duration-200"
                       />
                     </div>
                   </div>
                 </div>
 
-                {/* Tombol Final (Call to Action) */}
-                <div className="flex flex-col sm:flex-row justify-between items-center gap-4 pt-4 border-t border-stone-200/80">
+                {/* Actions */}
+                <div className="flex flex-col sm:flex-row justify-between items-center gap-3 pt-5 border-t border-stone-100">
                   <motion.button
                     type="button"
-                    whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={() => setStep(2)}
-                    className="w-full sm:w-auto px-6 py-3.5 rounded-xl font-semibold bg-stone-100 hover:bg-stone-200 text-stone-700 border border-stone-300/80 transition-colors duration-200 cursor-pointer text-center"
+                    className="w-full sm:w-auto px-5 py-2.5 rounded-lg text-sm font-medium text-stone-600 hover:text-stone-800 hover:bg-stone-100 transition-colors duration-200 cursor-pointer text-center"
                   >
-                    &larr; Kembali
+                    ← Kembali
                   </motion.button>
                   <motion.button
                     type="submit"
-                    whileHover={name.trim() && contact.trim() ? { scale: 1.02 } : {}}
+                    whileHover={name.trim() && contact.trim() ? { y: -1 } : {}}
                     whileTap={name.trim() && contact.trim() ? { scale: 0.98 } : {}}
                     disabled={!name.trim() || !contact.trim()}
-                    className={`w-full sm:w-auto px-8 py-3.5 rounded-xl font-bold transition-all duration-200 text-center ${
+                    className={`w-full sm:w-auto px-6 py-3 rounded-xl text-sm font-medium transition-all duration-200 text-center ${
                       name.trim() && contact.trim()
-                        ? "bg-amber-600 hover:bg-amber-700 text-white shadow-md shadow-amber-600/20 cursor-pointer"
-                        : "bg-stone-200 text-stone-400 border border-stone-300 cursor-not-allowed"
+                        ? "bg-amber-600 hover:bg-amber-700 text-white shadow-sm cursor-pointer"
+                        : "bg-stone-100 text-stone-300 border border-stone-200 cursor-not-allowed"
                     }`}
                   >
-                    Kirim Permintaan Estimasi 🚀
+                    Kirim permintaan
                   </motion.button>
                 </div>
               </form>

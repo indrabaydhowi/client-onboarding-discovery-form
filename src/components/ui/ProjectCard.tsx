@@ -19,9 +19,6 @@ export interface ProjectCardProps {
   onClick?: () => void;
 }
 
-/**
- * Komponen visual kartu jenis proyek dengan estetika Claude Desktop (Warm Cream & Amber).
- */
 export default function ProjectCard({
   title,
   description,
@@ -34,21 +31,25 @@ export default function ProjectCard({
   return (
     <motion.div
       onClick={onClick}
-      whileHover={{ y: -3, scale: 1.01 }}
-      whileTap={{ scale: 0.98 }}
-      transition={{ type: "spring", stiffness: 400, damping: 25 }}
-      className={`rounded-xl p-6 transition-all duration-200 cursor-pointer flex flex-col gap-4 text-left select-none ${
+      whileHover={{ y: -3 }}
+      whileTap={{ scale: 0.975 }}
+      transition={{ type: "spring", stiffness: 350, damping: 30 }}
+      className={`rounded-2xl p-6 cursor-pointer flex flex-col gap-5 text-left select-none transition-all duration-300 ease-out ${
         isSelected
-          ? "bg-[#FDF8F3] border-2 border-amber-600 ring-2 ring-amber-200/70 shadow-sm"
-          : "bg-white border border-stone-200/90 shadow-sm hover:border-amber-300 hover:shadow-stone-200/60"
+          ? "bg-white border-[1.5px] border-amber-500/80 shadow-md shadow-amber-100/60 ring-1 ring-amber-200/50"
+          : "bg-white border border-stone-200/80 shadow-sm hover:shadow-md hover:shadow-stone-200/40 hover:border-stone-300"
       }`}
     >
-      <div className={`p-3 rounded-lg w-fit transition-colors duration-200 ${isSelected ? "bg-amber-100/90 text-amber-700" : "bg-stone-100 text-stone-700"}`}>
-        <IconComponent className="w-6 h-6" />
+      <div className={`p-2.5 rounded-xl w-fit transition-colors duration-300 ease-out ${
+        isSelected ? "bg-amber-50 text-amber-700" : "bg-stone-50 text-stone-500"
+      }`}>
+        <IconComponent className="w-5 h-5" strokeWidth={1.8} />
       </div>
-      <div className="space-y-2">
-        <h3 className={`text-xl font-bold transition-colors duration-200 ${isSelected ? "text-amber-950" : "text-stone-900"}`}>{title}</h3>
-        <p className="text-stone-600 text-sm leading-relaxed">{description}</p>
+      <div className="space-y-1.5">
+        <h3 className={`text-lg font-semibold tracking-tight transition-colors duration-300 ease-out ${
+          isSelected ? "text-stone-900" : "text-stone-800"
+        }`}>{title}</h3>
+        <p className="text-stone-500 text-[13px] leading-relaxed font-normal">{description}</p>
       </div>
     </motion.div>
   );
