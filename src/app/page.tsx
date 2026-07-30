@@ -19,6 +19,12 @@ export default function HomePage() {
     toggleFeature,
   } = useFormContext();
 
+  const filteredFeatures = additionalFeatures.filter(
+    (feature) =>
+      feature.compatibleWith.includes("all") ||
+      feature.compatibleWith.includes(selectedProject || "")
+  );
+
   return (
     <main className="min-h-screen bg-slate-950 text-slate-50 py-12 px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center">
       <div className="max-w-5xl w-full space-y-8">
@@ -88,7 +94,7 @@ export default function HomePage() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {additionalFeatures.map((feature) => (
+              {filteredFeatures.map((feature) => (
                 <FeatureCard
                   key={feature.id}
                   title={feature.title}

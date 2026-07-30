@@ -40,6 +40,7 @@ export interface AdditionalFeatureOption {
   title: string;
   description: string;
   icon: string;
+  compatibleWith: string[];
 }
 
 export const projectTypes: ProjectTypeOption[] = [
@@ -70,36 +71,14 @@ export const projectTypes: ProjectTypeOption[] = [
 ];
 
 export const additionalFeatures: AdditionalFeatureOption[] = [
-  {
-    id: "seo-analytics",
-    title: "SEO & Analytics",
-    description: "Optimasi pencarian Google dan pelacakan statistik pengunjung.",
-    icon: "Search",
-  },
-  {
-    id: "copywriting",
-    title: "Copywriting",
-    description: "Penulisan teks website profesional dan persuasif.",
-    icon: "PenTool",
-  },
-  {
-    id: "payment-gateway",
-    title: "Payment Gateway",
-    description: "Integrasi pembayaran otomatis (Transfer Bank, e-Wallet, Kartu Kredit).",
-    icon: "CreditCard",
-  },
-  {
-    id: "export-report",
-    title: "Export Laporan",
-    description: "Fitur unduh data ke format PDF atau Excel.",
-    icon: "FileDown",
-  },
-  {
-    id: "cms",
-    title: "Content Management",
-    description: "Dashboard agar Anda bisa mengubah teks dan gambar sendiri.",
-    icon: "Settings",
-  },
+  { id: "seo-analytics", title: "SEO & Analytics", description: "Optimasi Google dan pelacakan statistik.", icon: "Search", compatibleWith: ["all"] },
+  { id: "copywriting", title: "Copywriting", description: "Penulisan teks website profesional.", icon: "PenTool", compatibleWith: ["all"] },
+  { id: "live-chat", title: "Live Chat / WhatsApp", description: "Tombol chat langsung untuk pengunjung.", icon: "MessageCircle", compatibleWith: ["landing-page", "company-profile", "e-commerce"] },
+  { id: "cms", title: "Content Management", description: "Dashboard untuk mengubah teks dan gambar.", icon: "Settings", compatibleWith: ["landing-page", "company-profile"] },
+  { id: "export-report", title: "Export Laporan", description: "Unduh data ke format PDF atau Excel.", icon: "FileDown", compatibleWith: ["data-management"] },
+  { id: "role-access", title: "Login Bertingkat", description: "Akses berbeda untuk Admin, Manager, dll.", icon: "Users", compatibleWith: ["data-management"] },
+  { id: "payment-gateway", title: "Payment Gateway", description: "Terima pembayaran otomatis (Transfer, e-Wallet).", icon: "CreditCard", compatibleWith: ["e-commerce"] },
+  { id: "inventory", title: "Manajemen Stok", description: "Sistem pelacakan ketersediaan barang.", icon: "Package", compatibleWith: ["e-commerce"] }
 ];
 
 export const featureOptions: FeatureOption[] = [
