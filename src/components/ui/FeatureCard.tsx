@@ -1,5 +1,5 @@
 import React from 'react';
-import { Search, PenTool, MessageCircle, Settings, FileDown, Users, CreditCard, Package, HelpCircle, LucideIcon } from 'lucide-react';
+import { Search, PenTool, MessageCircle, Settings, FileDown, Users, CreditCard, Package, Truck, Webhook, HelpCircle, LucideIcon } from 'lucide-react';
 
 const iconMap: Record<string, LucideIcon> = {
   Search,
@@ -10,6 +10,8 @@ const iconMap: Record<string, LucideIcon> = {
   Users,
   CreditCard,
   Package,
+  Truck,
+  Webhook,
 };
 
 export interface FeatureCardProps {

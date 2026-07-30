@@ -78,7 +78,9 @@ export const additionalFeatures: AdditionalFeatureOption[] = [
   { id: "export-report", title: "Export Laporan", description: "Unduh data ke format PDF atau Excel.", icon: "FileDown", compatibleWith: ["data-management"] },
   { id: "role-access", title: "Login Bertingkat", description: "Akses berbeda untuk Admin, Manager, dll.", icon: "Users", compatibleWith: ["data-management"] },
   { id: "payment-gateway", title: "Payment Gateway", description: "Terima pembayaran otomatis (Transfer, e-Wallet).", icon: "CreditCard", compatibleWith: ["e-commerce"] },
-  { id: "inventory", title: "Manajemen Stok", description: "Sistem pelacakan ketersediaan barang.", icon: "Package", compatibleWith: ["e-commerce"] }
+  { id: "inventory", title: "Manajemen Stok", description: "Sistem pelacakan ketersediaan barang.", icon: "Package", compatibleWith: ["e-commerce"] },
+  { id: "shipping", title: "Integrasi Ongkir", description: "Perhitungan ongkos kirim kurir otomatis.", icon: "Truck", compatibleWith: ["e-commerce"] },
+  { id: "api-integration", title: "Integrasi API", description: "Hubungkan sistem dengan aplikasi lama Anda.", icon: "Webhook", compatibleWith: ["data-management"] }
 ];
 
 export const featureOptions: FeatureOption[] = [
