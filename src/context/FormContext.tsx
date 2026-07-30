@@ -12,8 +12,6 @@ interface FormContextType {
   toggleFeature: (featureId: string) => void;
   timeline: string;
   setTimeline: (timeline: string) => void;
-  budget: string;
-  setBudget: (budget: string) => void;
   name: string;
   setName: (name: string) => void;
   contact: string;
@@ -27,7 +25,6 @@ export function FormProvider({ children }: { children: ReactNode }) {
   const [step, setStep] = useState<number>(1);
   const [selectedFeatures, setSelectedFeatures] = useState<string[]>([]);
   const [timeline, setTimeline] = useState<string>("");
-  const [budget, setBudget] = useState<string>("");
   const [name, setName] = useState<string>("");
   const [contact, setContact] = useState<string>("");
 
@@ -51,8 +48,6 @@ export function FormProvider({ children }: { children: ReactNode }) {
         toggleFeature,
         timeline,
         setTimeline,
-        budget,
-        setBudget,
         name,
         setName,
         contact,

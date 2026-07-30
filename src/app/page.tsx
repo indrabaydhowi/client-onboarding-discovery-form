@@ -19,8 +19,6 @@ export default function HomePage() {
     toggleFeature,
     timeline,
     setTimeline,
-    budget,
-    setBudget,
     name,
     setName,
     contact,
@@ -38,7 +36,7 @@ export default function HomePage() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!name.trim() || !contact.trim()) return;
-    alert("Terima kasih! Estimasi proyek Anda telah berhasil dikirim.");
+    alert("Terima kasih! Permintaan estimasi Anda telah berhasil dikirim.");
   };
 
   return (
@@ -148,10 +146,10 @@ export default function HomePage() {
           <form onSubmit={handleSubmit} className="space-y-8 bg-slate-900/60 p-6 sm:p-8 rounded-2xl border border-slate-800">
             <div className="text-center space-y-3">
               <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
-                Estimasi Proyek & Data Kontak
+                Estimasi Waktu & Data Kontak
               </h1>
               <p className="text-slate-400 text-base max-w-2xl mx-auto">
-                Lengkapi detail singkat ini agar kami dapat memberikan penawaran dan estimasi terbaik untuk Anda.
+                Lengkapi detail singkat ini agar kami dapat menghitung dan mengirimkan penawaran estimasi secara privat.
               </p>
               {selectedProjectData && (
                 <div className="pt-2 flex justify-center flex-wrap gap-2">
@@ -165,16 +163,16 @@ export default function HomePage() {
               )}
             </div>
 
-            {/* Bagian A: Estimasi Waktu (Timeline) */}
+            {/* Estimasi Waktu (Timeline) */}
             <div className="space-y-3">
               <label className="block text-sm font-semibold text-slate-200">
                 Estimasi Waktu Pengerjaan
               </label>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 {[
-                  { id: "relaxed", label: "Santai (> 1 Bulan)" },
+                  { id: "relaxed", label: "Santai (1-2 Bulan)" },
                   { id: "normal", label: "Normal (2-4 Minggu)" },
-                  { id: "asap", label: "ASAP (Butuh Cepat)" },
+                  { id: "asap", label: "Butuh Cepat / ASAP" },
                 ].map((item) => (
                   <button
                     key={item.id}
@@ -192,27 +190,10 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* Bagian B: Estimasi Investasi (Budget) */}
-            <div className="space-y-3">
-              <label className="block text-sm font-semibold text-slate-200">
-                Estimasi Alokasi Budget
-              </label>
-              <select
-                value={budget}
-                onChange={(e) => setBudget(e.target.value)}
-                className="w-full p-4 rounded-xl bg-slate-900 border border-slate-800 text-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all cursor-pointer"
-              >
-                <option value="" disabled>Pilih rentang budget...</option>
-                <option value="under-5m">Di bawah Rp 5 Juta</option>
-                <option value="5m-15m">Rp 5 Juta - Rp 15 Juta</option>
-                <option value="above-15m">Di atas Rp 15 Juta</option>
-              </select>
-            </div>
-
-            {/* Bagian C: Data Kontak (Minimalis) */}
+            {/* Informasi Kontak */}
             <div className="space-y-4 pt-2 border-t border-slate-800">
               <h3 className="text-sm font-semibold text-slate-200">
-                Informasi Kontak Anda
+                Informasi Kontak
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
@@ -256,7 +237,7 @@ export default function HomePage() {
                     : "bg-slate-800 text-slate-500 cursor-not-allowed border border-slate-700"
                 }`}
               >
-                Dapatkan Estimasi Proyek 🚀
+                Kirim Permintaan Estimasi 🚀
               </button>
             </div>
           </form>
