@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { FormProvider } from "@/context/FormContext";
 
 export const metadata: Metadata = {
   title: "Client Onboarding & Project Discovery Form",
@@ -17,7 +18,9 @@ export default function RootLayout({
   return (
     <html lang="id">
       <body className="min-h-screen bg-slate-950 text-slate-50 antialiased">
-        {children}
+        <FormProvider>
+          {children}
+        </FormProvider>
       </body>
     </html>
   );
