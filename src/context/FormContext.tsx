@@ -10,6 +10,14 @@ interface FormContextType {
   selectedFeatures: string[];
   setSelectedFeatures: React.Dispatch<React.SetStateAction<string[]>>;
   toggleFeature: (featureId: string) => void;
+  timeline: string;
+  setTimeline: (timeline: string) => void;
+  budget: string;
+  setBudget: (budget: string) => void;
+  name: string;
+  setName: (name: string) => void;
+  contact: string;
+  setContact: (contact: string) => void;
 }
 
 const FormContext = createContext<FormContextType | undefined>(undefined);
@@ -18,6 +26,10 @@ export function FormProvider({ children }: { children: ReactNode }) {
   const [selectedProject, setSelectedProject] = useState<string | null>(null);
   const [step, setStep] = useState<number>(1);
   const [selectedFeatures, setSelectedFeatures] = useState<string[]>([]);
+  const [timeline, setTimeline] = useState<string>("");
+  const [budget, setBudget] = useState<string>("");
+  const [name, setName] = useState<string>("");
+  const [contact, setContact] = useState<string>("");
 
   const toggleFeature = (featureId: string) => {
     setSelectedFeatures((prev) =>
@@ -37,6 +49,14 @@ export function FormProvider({ children }: { children: ReactNode }) {
         selectedFeatures,
         setSelectedFeatures,
         toggleFeature,
+        timeline,
+        setTimeline,
+        budget,
+        setBudget,
+        name,
+        setName,
+        contact,
+        setContact,
       }}
     >
       {children}
